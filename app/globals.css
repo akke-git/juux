@@ -1,0 +1,915 @@
+:root {
+  --bg-page: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #e5e7eb;
+  --muted: #6b7280;
+  --accent: #0f766e;
+  --card-bg: #f8fafb;
+  --card-border: #e5e7eb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-page);
+  color: var(--text-primary);
+  font-family: "DM Sans", "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.container {
+  width: min(100%, 1440px);
+  margin: 0 auto;
+  padding-inline: 20px;
+}
+
+.hero {
+  position: relative;
+  min-height: 560px;
+  display: grid;
+  place-items: center;
+  background-image: url("/images/generated-1770788887921.png");
+  background-size: cover;
+  background-position: center;
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 18, 32, 0.18);
+}
+
+.hero__content {
+  position: relative;
+  text-align: center;
+  z-index: 1;
+}
+
+.hero__title {
+  margin: 0;
+  color: #f8fafc;
+  font-size: clamp(2.5rem, 4.5vw, 3.625rem);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.hero__subtitle {
+  margin: 14px auto 20px;
+  max-width: 680px;
+  color: var(--text-secondary);
+  font-size: clamp(0.9375rem, 1.6vw, 1.125rem);
+  line-height: 1.6;
+}
+
+.hero__badges {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.hero__badge {
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(229, 231, 235, 0.6);
+  background: rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.hero__badge:first-child {
+  background: rgba(11, 18, 32, 0.6);
+  border: 0;
+}
+
+.services {
+  padding: 80px 0;
+}
+
+.services__header {
+  text-align: center;
+}
+
+.services__eyebrow {
+  margin: 0;
+  color: #0d9488;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+}
+
+.services__title {
+  margin: 12px 0 0;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 700;
+}
+
+.services__desc {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.services__grid {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.service-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 10px;
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  background: var(--card-bg);
+  text-align: center;
+}
+
+.service-card--link {
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.service-card--link:hover {
+  transform: translateY(-2px);
+  border-color: #0d9488;
+}
+
+.service-card__icon-wrap {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+}
+
+.service-card__icon {
+  object-fit: contain;
+}
+
+.service-card__name {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #111827;
+}
+
+.section-eyebrow {
+  margin: 0;
+  color: #0d9488;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+}
+
+.section-title {
+  margin: 12px 0 0;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 700;
+}
+
+.section-desc {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.golf {
+  padding: 80px 0;
+  background: #f8fafb;
+}
+
+.golf__split {
+  margin-top: 32px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
+}
+
+.golf-card {
+  display: grid;
+  gap: 20px;
+}
+
+.golf-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.golf-card__head h3 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.golf-card__head span,
+.golf-card__head a {
+  color: #9ca3af;
+  font-size: 0.8125rem;
+  text-decoration: none;
+}
+
+.latest-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  background: #fff;
+  padding: 20px;
+}
+
+.latest-card__label {
+  margin: 0 0 6px;
+  color: #9ca3af;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.latest-card h4 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.latest-card__meta {
+  margin: 6px 0 0;
+  color: #6b7280;
+  font-size: 0.8125rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-style: normal;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badge--win {
+  color: #22c55e;
+  background: #f0fdf4;
+}
+
+.badge--lose {
+  color: #ef4444;
+  background: #fef2f2;
+}
+
+.table-wrap {
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.table-row {
+  display: grid;
+  grid-template-columns: 0.9fr 1.5fr 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.table-row:last-child {
+  border-bottom: 0;
+}
+
+.table-row span {
+  font-size: 0.8125rem;
+  color: #111827;
+}
+
+.table-row--head {
+  background: #fafafa;
+}
+
+.table-row--head span {
+  color: #6b7280;
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.table-score {
+  font-weight: 600;
+}
+
+.score {
+  display: grid;
+  justify-items: end;
+}
+
+.score strong {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.score span {
+  color: #9ca3af;
+  font-size: 0.6875rem;
+}
+
+.blog {
+  padding: 80px 0;
+}
+
+.blog__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.ghost-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 24px;
+  border: 1px solid #0d9488;
+  border-radius: 8px;
+  color: #0d9488;
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+
+.blog__grid {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.blog-card {
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.blog-card__image-wrap {
+  position: relative;
+  height: 180px;
+}
+
+.blog-card__image {
+  object-fit: cover;
+}
+
+.blog-card__body {
+  display: grid;
+  gap: 10px;
+  padding: 20px;
+}
+
+.blog-card__date {
+  margin: 0;
+  color: #9ca3af;
+  font-size: 0.75rem;
+}
+
+.blog-card__title {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.blog-card__desc {
+  margin: 0;
+  color: #9ca3af;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.site-footer {
+  padding: 48px 0;
+  background: #0f172a;
+}
+
+.site-footer__top {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.site-footer__logo {
+  margin: 0;
+  color: #0d9488;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.site-footer__tagline {
+  margin: 12px 0 0;
+  color: #94a3b8;
+  font-size: 0.8125rem;
+}
+
+.site-footer__links {
+  display: flex;
+  gap: 64px;
+}
+
+.site-footer__links h4 {
+  margin: 0 0 12px;
+  color: #94a3b8;
+  font-size: 0.8125rem;
+}
+
+.site-footer__links ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 12px;
+}
+
+.site-footer__links li {
+  color: #64748b;
+  font-size: 0.8125rem;
+}
+
+.site-footer__divider {
+  margin: 32px 0;
+  width: 100%;
+  height: 1px;
+  background: #1e293b;
+}
+
+.site-footer__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.site-footer__bottom p {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.75rem;
+}
+
+.site-footer__social {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.site-footer__social span {
+  color: #64748b;
+  font-size: 0.75rem;
+}
+
+@media (max-width: 1024px) {
+  .services__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .golf__split,
+  .blog__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: 520px;
+    padding: 40px 0;
+  }
+
+  .hero__subtitle {
+    max-width: 360px;
+  }
+
+  .hero__badges {
+    gap: 8px;
+  }
+
+  .hero__badge {
+    padding: 9px 12px;
+    font-size: 0.8125rem;
+  }
+
+  .services {
+    padding: 48px 0;
+  }
+
+  .services__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .service-card {
+    padding: 14px 12px;
+  }
+
+  .golf {
+    padding: 48px 0;
+  }
+
+  .golf__split {
+    margin-top: 20px;
+    gap: 16px;
+  }
+
+  .golf-card__head h3 {
+    font-size: 1.0625rem;
+  }
+
+  .latest-card {
+    padding: 16px;
+  }
+
+  .table-row {
+    grid-template-columns: 0.8fr 1.2fr 1fr;
+    gap: 8px;
+    padding: 10px 14px;
+  }
+
+  .table-row span {
+    font-size: 0.75rem;
+  }
+
+  .blog {
+    padding: 48px 0;
+  }
+
+  .blog__head {
+    align-items: flex-end;
+  }
+
+  .ghost-link {
+    border: 0;
+    padding: 0;
+    color: #9ca3af;
+    font-size: 0.75rem;
+  }
+
+  .blog__grid {
+    gap: 20px;
+  }
+
+  .blog-card {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    align-items: center;
+  }
+
+  .blog-card__image-wrap {
+    height: 100%;
+    min-height: 90px;
+  }
+
+  .blog-card__body {
+    padding: 14px;
+    gap: 6px;
+  }
+
+  .blog-card__title {
+    font-size: 0.875rem;
+  }
+
+  .blog-card__desc {
+    display: none;
+  }
+
+  .site-footer {
+    padding: 40px 0;
+  }
+
+  .site-footer__top {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .site-footer__links {
+    width: 100%;
+    gap: 40px;
+  }
+
+  .site-footer__divider {
+    margin: 24px 0;
+  }
+
+  .site-footer__bottom {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+.golf-page {
+  min-height: 100vh;
+  padding: 56px 0 80px;
+  background: linear-gradient(180deg, #eef8f6 0%, #ffffff 42%);
+}
+
+.golf-page__loading {
+  font-size: 1rem;
+  color: #64748b;
+}
+
+.golf-page__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.golf-page__title {
+  margin: 8px 0 0;
+  font-size: clamp(1.9rem, 3vw, 2.6rem);
+}
+
+.golf-page__desc {
+  margin: 10px 0 0;
+  color: #64748b;
+  max-width: 680px;
+}
+
+.golf-page__actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(120px, 1fr));
+  gap: 10px;
+  width: min(440px, 100%);
+}
+
+.golf-page__actions button,
+.golf-form button,
+.golf-modal__header button,
+.golf-modal-list__item {
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background: #fff;
+  color: #0f172a;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.golf-page__actions button {
+  padding: 10px 12px;
+  font-weight: 600;
+}
+
+.golf-page__actions button:hover,
+.golf-form button:hover,
+.golf-modal__header button:hover,
+.golf-modal-list__item:hover {
+  border-color: #0f766e;
+}
+
+.golf-page__error {
+  margin: 16px 0 0;
+  color: #b91c1c;
+  font-size: 0.9rem;
+}
+
+.golf-kpis {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.golf-kpi-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  background: #ffffff;
+  padding: 16px;
+}
+
+.golf-kpi-card p {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.82rem;
+}
+
+.golf-kpi-card strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 1.75rem;
+}
+
+.golf-tabs {
+  margin-top: 26px;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  background: #ffffff;
+  padding: 18px;
+}
+
+.golf-tabs__head {
+  display: inline-flex;
+  gap: 8px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 4px;
+}
+
+.golf-tabs__head button {
+  border: 0;
+  background: transparent;
+  padding: 8px 14px;
+  border-radius: 10px;
+  color: #475569;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.golf-tabs__head button.is-active {
+  background: #0f766e;
+  color: #ffffff;
+}
+
+.golf-list-panel {
+  margin-top: 16px;
+}
+
+.golf-list-panel__filter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.golf-list-panel__filter label {
+  font-size: 0.875rem;
+  color: #334155;
+}
+
+.golf-list-panel__filter select,
+.golf-form input,
+.golf-form select,
+.golf-form textarea {
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 9px 11px;
+  font: inherit;
+}
+
+.golf-table-wrap {
+  overflow: auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.golf-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 680px;
+}
+
+.golf-table th,
+.golf-table td {
+  border-bottom: 1px solid #e2e8f0;
+  padding: 11px 12px;
+  text-align: left;
+  font-size: 0.86rem;
+}
+
+.golf-table th {
+  background: #f8fafc;
+  color: #475569;
+  font-weight: 700;
+}
+
+.golf-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  z-index: 120;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.golf-modal {
+  width: min(980px, 100%);
+  max-height: calc(100vh - 40px);
+  overflow: auto;
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid #dbe4ef;
+}
+
+.golf-modal__header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid #e2e8f0;
+  background: #ffffff;
+}
+
+.golf-modal__header h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.golf-modal__header button {
+  padding: 8px 12px;
+}
+
+.golf-modal__body {
+  padding: 16px;
+}
+
+.golf-modal-grid {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 14px;
+}
+
+.golf-modal-list {
+  max-height: 440px;
+  overflow: auto;
+  display: grid;
+  align-content: start;
+  gap: 8px;
+}
+
+.golf-modal-list__item {
+  padding: 10px;
+  text-align: left;
+}
+
+.golf-form {
+  display: grid;
+  gap: 10px;
+}
+
+.golf-form h3 {
+  margin: 0 0 4px;
+  font-size: 1rem;
+}
+
+.golf-form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.golf-form__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.golf-form button {
+  padding: 9px 12px;
+  font-weight: 600;
+}
+
+@media (max-width: 1024px) {
+  .golf-page__header {
+    flex-direction: column;
+  }
+
+  .golf-page__actions {
+    width: 100%;
+  }
+
+  .golf-kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .golf-page {
+    padding: 32px 0 56px;
+  }
+
+  .golf-page__actions {
+    grid-template-columns: 1fr;
+  }
+
+  .golf-kpis {
+    grid-template-columns: 1fr;
+  }
+
+  .golf-modal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .golf-modal-list {
+    max-height: 220px;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(160px, 1fr);
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+}
