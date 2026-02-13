@@ -161,7 +161,6 @@ export async function getGolfDashboardData() {
 export async function createUser(input: {
   username: string;
   email: string;
-  password: string;
   display_name?: string | null;
   handicap?: number | null;
   profile_image?: string | null;
@@ -172,7 +171,7 @@ export async function createUser(input: {
     [
       input.username,
       input.email,
-      input.password,
+      "",
       input.display_name ?? null,
       input.handicap ?? null,
       input.profile_image ?? null
@@ -187,30 +186,11 @@ export async function updateUser(
   input: {
     username: string;
     email: string;
-    password?: string | null;
     display_name?: string | null;
     handicap?: number | null;
     profile_image?: string | null;
   }
 ) {
-  if (input.password && input.password.trim().length > 0) {
-    await db.execute(
-      `UPDATE users
-       SET username = ?, email = ?, password = ?, display_name = ?, handicap = ?, profile_image = ?
-       WHERE id = ?`,
-      [
-        input.username,
-        input.email,
-        input.password,
-        input.display_name ?? null,
-        input.handicap ?? null,
-        input.profile_image ?? null,
-        id
-      ]
-    );
-    return;
-  }
-
   await db.execute(
     `UPDATE users
      SET username = ?, email = ?, display_name = ?, handicap = ?, profile_image = ?
@@ -224,6 +204,10 @@ export async function updateUser(
       id
     ]
   );
+}
+
+export async function deleteUser(id: number) {
+  await db.execute(`DELETE FROM users WHERE id = ?`, [id]);
 }
 
 export async function createTeam(input: {
@@ -256,6 +240,10 @@ export async function updateTeam(
      WHERE team_id = ?`,
     [input.team_name, input.user1_id, input.user2_id, input.team_image ?? null, id]
   );
+}
+
+export async function deleteTeam(id: number) {
+  await db.execute(`DELETE FROM team WHERE team_id = ?`, [id]);
 }
 
 export async function createRound(input: {
@@ -299,6 +287,37 @@ export async function createRound(input: {
   } finally {
     conn.release();
   }
+}
+
+export async function updateRound(
+  id: number,
+  input: {
+    user_id: number;
+    course_id: number;
+    play_date: string;
+    weather?: string | null;
+    total_score?: number | null;
+    notes?: string | null;
+  }
+) {
+  await db.execute(
+    `UPDATE rounds
+     SET user_id = ?, course_id = ?, play_date = ?, weather = ?, total_score = ?, notes = ?
+     WHERE id = ?`,
+    [
+      input.user_id,
+      input.course_id,
+      input.play_date,
+      input.weather ?? null,
+      input.total_score ?? null,
+      input.notes ?? null,
+      id
+    ]
+  );
+}
+
+export async function deleteRound(id: number) {
+  await db.execute(`DELETE FROM rounds WHERE id = ?`, [id]);
 }
 
 async function insertHoleScores(
@@ -387,6 +406,61 @@ export async function createTeamMatch(input: {
 
     await conn.commit();
     return matchId;
+  } catch (error) {
+    await conn.rollback();
+    throw error;
+  } finally {
+    conn.release();
+  }
+}
+
+export async function updateTeamMatch(
+  id: number,
+  input: {
+    team1_id: number;
+    team2_id: number;
+    course_id: number;
+    match_date: string;
+    handicap_team?: number | null;
+    handicap_amount?: number | null;
+    match_status?: string | null;
+    winner?: number | null;
+  }
+) {
+  await db.execute(
+    `UPDATE team_match
+     SET
+       team1_id = ?,
+       team2_id = ?,
+       course_id = ?,
+       match_date = ?,
+       handicap_team = ?,
+       handicap_amount = ?,
+       match_status = ?,
+       winner = ?
+     WHERE team_match_id = ?`,
+    [
+      input.team1_id,
+      input.team2_id,
+      input.course_id,
+      input.match_date,
+      input.handicap_team ?? null,
+      input.handicap_amount ?? null,
+      input.match_status ?? null,
+      input.winner ?? null,
+      id
+    ]
+  );
+}
+
+export async function deleteTeamMatch(id: number) {
+  const conn = await db.getConnection();
+
+  try {
+    await conn.beginTransaction();
+    await conn.execute(`DELETE FROM team_match_hole WHERE team_match_id = ?`, [id]);
+    await conn.execute(`DELETE FROM team_match WHERE team_match_id = ?`, [id]);
+    await conn.commit();
   } catch (error) {
     await conn.rollback();
     throw error;

@@ -156,3 +156,37 @@ npm run dev
 - 골프 UI: `components/golf-dashboard.tsx`
 - API 루트: `app/api/golf/*`
 - DB 연동: `lib/mysql.ts`, `lib/golf-repository.ts`
+
+---
+
+## 10) 추가 진행현황 (2026-02-13)
+
+### round / team match CRUD 확장
+- 개인 라운드/팀 매치에 **수정/삭제** 기능 추가.
+- 신규 API 라우트 추가:
+  - `app/api/golf/rounds/[id]/route.ts` (`PUT`, `DELETE`)
+  - `app/api/golf/matches/[id]/route.ts` (`PUT`, `DELETE`)
+- Repository 함수 추가:
+  - `updateRound`, `deleteRound`
+  - `updateTeamMatch`, `deleteTeamMatch`
+- 프론트(`components/golf-dashboard.tsx`)에서 등록/수정 겸용 폼으로 전환:
+  - 리스트 `수정` 클릭 시 모달 프리필
+  - 모달에서 `초기화`, `수정`, `삭제` 동작 지원
+
+### 골프 모달/리스트 UI 개선
+- round/team match 팝업 좌측 이미지를 업로드 원본으로 교체:
+  - `public/images/golf_illust.jpg`
+- 상단 버튼 구성 변경:
+  - 상단은 `Player`, `Team`만 유지
+  - 두 버튼을 소형화 + 세로 2단 배치
+- 팀 매치/개인 라운드 카드 우측 상단에 `신규등록(+)` 아이콘 버튼 추가
+  - 기존 등록 팝업과 연결
+- 테이블 개선:
+  - `관리` 컬럼명을 `수정`으로 변경
+  - 수정 버튼을 아이콘(✎)으로 변경
+  - 날짜/날씨/수정 컬럼 폭 축소 및 레이아웃 조정으로 가로 스크롤 완화
+- 상단 배너 좌상단에 메인 복귀 링크 추가:
+  - 텍스트 형태 `← back` (배경 가리지 않도록 버튼형 제거)
+
+### 검증
+- `npm run lint` 통과

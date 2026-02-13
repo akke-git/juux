@@ -611,13 +611,50 @@ body {
 
 .golf-page {
   min-height: 100vh;
-  padding: 56px 0 80px;
+  padding: 0 0 80px;
   background: linear-gradient(180deg, #eef8f6 0%, #ffffff 42%);
 }
 
 .golf-page__loading {
   font-size: 1rem;
   color: #64748b;
+}
+
+.golf-page__hero {
+  position: relative;
+  height: 180px;
+  border-radius: 0 0 18px 18px;
+  overflow: hidden;
+  margin-bottom: 24px;
+  border: 1px solid #dbe3ea;
+  border-top: 0;
+  background-image: url("/images/golf-hero.svg");
+  background-size: cover;
+  background-position: center;
+}
+
+.golf-page__hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(15, 23, 42, 0.4) 0%, rgba(15, 23, 42, 0.14) 100%);
+}
+
+.golf-page__hero-home {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1;
+  color: #ffffff;
+  padding: 2px 4px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  text-shadow: 0 1px 2px rgba(15, 23, 42, 0.75);
+  letter-spacing: 0.02em;
+}
+
+.golf-page__hero-home:hover {
+  text-decoration: underline;
 }
 
 .golf-page__header {
@@ -640,9 +677,9 @@ body {
 
 .golf-page__actions {
   display: grid;
-  grid-template-columns: repeat(2, minmax(120px, 1fr));
-  gap: 10px;
-  width: min(440px, 100%);
+  grid-template-columns: 1fr;
+  gap: 8px;
+  width: 112px;
 }
 
 .golf-page__actions button,
@@ -658,7 +695,8 @@ body {
 }
 
 .golf-page__actions button {
-  padding: 10px 12px;
+  padding: 8px 10px;
+  font-size: 0.82rem;
   font-weight: 600;
 }
 
@@ -676,72 +714,170 @@ body {
 }
 
 .golf-kpis {
-  margin-top: 24px;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 18px;
+  margin-bottom: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.golf-kpi-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  border: 1px solid #dbe5ef;
+  border-radius: 999px;
+  background: #ffffff;
+  padding: 6px 12px;
+}
+
+.golf-kpi-chip p {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.76rem;
+}
+
+.golf-kpi-chip strong {
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+.golf-highlight {
+  margin-top: 14px;
+  border-radius: 16px;
+  border: 1px solid #0f766e;
+  background:
+    radial-gradient(120% 140% at 0% 0%, rgba(15, 118, 110, 0.18) 0%, rgba(15, 118, 110, 0) 48%),
+    linear-gradient(135deg, #0f172a 0%, #134e4a 100%);
+  color: #f8fafc;
+  padding: 16px 18px;
+}
+
+.golf-highlight__eyebrow {
+  margin: 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  color: #99f6e4;
+  font-weight: 700;
+}
+
+.golf-highlight__top {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 14px;
 }
 
-.golf-kpi-card {
-  border: 1px solid #e2e8f0;
-  border-radius: 14px;
-  background: #ffffff;
-  padding: 16px;
-}
-
-.golf-kpi-card p {
+.golf-highlight__top h2 {
   margin: 0;
-  color: #64748b;
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+}
+
+.golf-highlight__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.golf-highlight__winner {
+  margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
+  padding: 8px 12px;
+  border: 1px solid rgba(251, 191, 36, 0.7);
+  background: linear-gradient(135deg, rgba(217, 119, 6, 0.3), rgba(180, 83, 9, 0.12));
+}
+
+.golf-highlight__winner-label {
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  color: #fde68a;
+  font-weight: 700;
+}
+
+.golf-highlight__winner strong {
+  font-size: clamp(1.18rem, 2.2vw, 1.5rem);
+  line-height: 1;
+  color: #fef3c7;
+}
+
+.golf-highlight__meta span {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.35);
+  padding: 6px 10px;
+  font-size: 0.78rem;
+}
+
+.golf-highlight__date {
+  margin: 0;
   font-size: 0.82rem;
+  color: #cbd5e1;
 }
 
-.golf-kpi-card strong {
-  display: block;
+.golf-highlight__empty {
   margin-top: 8px;
-  font-size: 1.75rem;
+  color: #cbd5e1;
+  font-size: 0.88rem;
 }
 
-.golf-tabs {
+.golf-dual {
   margin-top: 26px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.golf-list-panel {
   border: 1px solid #e2e8f0;
   border-radius: 16px;
   background: #ffffff;
   padding: 18px;
 }
 
-.golf-tabs__head {
-  display: inline-flex;
-  gap: 8px;
-  border: 1px solid #e2e8f0;
-  background: #f8fafc;
-  border-radius: 12px;
-  padding: 4px;
+.golf-list-panel__head h2 {
+  margin: 0;
+  font-size: 1.1rem;
 }
 
-.golf-tabs__head button {
-  border: 0;
-  background: transparent;
-  padding: 8px 14px;
-  border-radius: 10px;
-  color: #475569;
-  font-weight: 600;
+.golf-list-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.golf-list-panel__add {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #99f6e4;
+  border-radius: 999px;
+  background: #f0fdfa;
+  color: #0f766e;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1;
   cursor: pointer;
 }
 
-.golf-tabs__head button.is-active {
-  background: #0f766e;
-  color: #ffffff;
-}
-
-.golf-list-panel {
-  margin-top: 16px;
+.golf-list-panel__add:hover {
+  background: #ccfbf1;
 }
 
 .golf-list-panel__filter {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 12px;
+  margin: 12px 0;
 }
 
 .golf-list-panel__filter label {
@@ -769,7 +905,7 @@ body {
 .golf-table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 680px;
+  table-layout: fixed;
 }
 
 .golf-table th,
@@ -778,12 +914,51 @@ body {
   padding: 11px 12px;
   text-align: left;
   font-size: 0.86rem;
+  word-break: break-word;
 }
 
 .golf-table th {
   background: #f8fafc;
   color: #475569;
   font-weight: 700;
+}
+
+.golf-table__action {
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 6px 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.golf-table__action:hover {
+  background: #f8fafc;
+}
+
+.golf-table__action--icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  padding: 0;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.golf-col-date {
+  width: 94px;
+}
+
+.golf-col-weather {
+  width: 76px;
+}
+
+.golf-col-edit {
+  width: 56px;
+  text-align: center !important;
 }
 
 .golf-modal-backdrop {
@@ -830,6 +1005,113 @@ body {
   padding: 16px;
 }
 
+.user-modal-layout {
+  display: grid;
+  gap: 12px;
+}
+
+.user-modal-hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid #d9e4ef;
+  background-image:
+    linear-gradient(100deg, rgba(15, 23, 42, 0.78), rgba(15, 118, 110, 0.44)),
+    url("/images/golf-hero.svg");
+  background-size: cover;
+  background-position: center;
+}
+
+.user-modal-hero__content {
+  padding: 16px 18px;
+  color: #f8fafc;
+}
+
+.user-modal-hero__eyebrow {
+  margin: 0;
+  color: #99f6e4;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+}
+
+.user-modal-hero h3 {
+  margin: 8px 0 0;
+  font-size: 1.16rem;
+}
+
+.user-modal-hero p {
+  margin: 8px 0 0;
+  font-size: 0.86rem;
+  color: #dbeafe;
+}
+
+.user-modal-hero__count {
+  margin-top: 12px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid rgba(153, 246, 228, 0.5);
+  background: rgba(15, 23, 42, 0.28);
+  padding: 6px 10px;
+  font-size: 0.78rem;
+  color: #ccfbf1;
+}
+
+.golf-modal-grid--user {
+  gap: 12px;
+}
+
+.golf-modal-grid--single {
+  grid-template-columns: 1fr;
+}
+
+.golf-modal-list--user,
+.golf-form--user {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  padding: 10px;
+}
+
+.golf-modal-grid--single .golf-form--user {
+  max-width: 760px;
+}
+
+.golf-modal-split {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 12px;
+  align-items: stretch;
+}
+
+.golf-modal-side {
+  border: 0;
+  border-radius: 0;
+  background-size: 72%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+  min-height: 100%;
+}
+
+.golf-modal-side--round {
+  background-image: url("/images/golf_illust.jpg");
+  background-size: contain;
+  background-color: #ffffff;
+}
+
+.golf-modal-side--match {
+  background-image: url("/images/golf_illust.jpg");
+  background-size: contain;
+  background-color: #ffffff;
+}
+
+.golf-form--wide {
+  width: 100%;
+  max-width: none;
+}
+
 .golf-modal-grid {
   display: grid;
   grid-template-columns: 240px 1fr;
@@ -849,14 +1131,33 @@ body {
   text-align: left;
 }
 
+.golf-modal-list__item--new {
+  border-style: dashed;
+  border-color: #0f766e;
+  color: #0f766e;
+  font-weight: 700;
+  background: #f0fdfa;
+}
+
 .golf-form {
   display: grid;
   gap: 10px;
 }
 
+.golf-form__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
 .golf-form h3 {
   margin: 0 0 4px;
   font-size: 1rem;
+}
+
+.golf-form__head h3 {
+  margin: 0;
 }
 
 .golf-form textarea {
@@ -874,23 +1175,45 @@ body {
   font-weight: 600;
 }
 
+.golf-button--danger {
+  border-color: #fecaca !important;
+  background: #fef2f2 !important;
+  color: #b91c1c !important;
+}
+
+.golf-button--danger:hover {
+  border-color: #ef4444 !important;
+  background: #fee2e2 !important;
+}
+
 @media (max-width: 1024px) {
   .golf-page__header {
     flex-direction: column;
   }
 
   .golf-page__actions {
-    width: 100%;
+    width: 112px;
+    justify-self: start;
   }
 
   .golf-kpis {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .golf-dual {
+    grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 768px) {
   .golf-page {
-    padding: 32px 0 56px;
+    padding: 0 0 56px;
+  }
+
+  .golf-page__hero {
+    height: 132px;
+    border-radius: 0 0 14px 14px;
+    margin-bottom: 18px;
   }
 
   .golf-page__actions {
@@ -898,11 +1221,37 @@ body {
   }
 
   .golf-kpis {
-    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .golf-highlight {
+    padding: 14px;
+  }
+
+  .golf-highlight__top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .golf-highlight__meta {
+    flex-wrap: wrap;
   }
 
   .golf-modal-grid {
     grid-template-columns: 1fr;
+  }
+
+  .golf-modal-split {
+    grid-template-columns: 1fr;
+  }
+
+  .golf-modal-side {
+    min-height: 130px;
+  }
+
+  .user-modal-hero__content {
+    padding: 14px;
   }
 
   .golf-modal-list {
