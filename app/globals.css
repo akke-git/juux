@@ -191,11 +191,13 @@ body {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 32px;
+  align-items: start;
 }
 
 .golf-card {
   display: grid;
   gap: 20px;
+  align-content: start;
 }
 
 .golf-card__head {
@@ -218,7 +220,7 @@ body {
 
 .latest-card {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 20px;
   border: 1px solid var(--card-border);
@@ -266,6 +268,11 @@ body {
 .badge--lose {
   color: #ef4444;
   background: #fef2f2;
+}
+
+.badge--pending {
+  color: #64748b;
+  background: #f8fafc;
 }
 
 .table-wrap {
@@ -357,6 +364,12 @@ body {
   border-radius: 12px;
   background: #fff;
   overflow: hidden;
+}
+
+.blog-card--link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
 }
 
 .blog-card__image-wrap {
@@ -615,28 +628,37 @@ body {
   background: linear-gradient(180deg, #eef8f6 0%, #ffffff 42%);
 }
 
+.golf-page__content {
+  width: min(100%, 1440px);
+  margin: 0 auto;
+  padding-inline: 20px;
+}
+
 .golf-page__loading {
   font-size: 1rem;
   color: #64748b;
+  padding-top: 24px;
 }
 
 .golf-page__hero {
   position: relative;
-  height: 180px;
-  border-radius: 0 0 18px 18px;
+  height: 260px;
+  border-radius: 0;
   overflow: hidden;
-  margin-bottom: 24px;
+  margin-bottom: 40px;
   border: 1px solid #dbe3ea;
   border-top: 0;
-  background-image: url("/images/golf-hero.svg");
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.18)),
+    url("/images/pebble-beach-18th-green.jpg");
   background-size: cover;
-  background-position: center;
+  background-position: center 50%;
 }
 
 .golf-page__hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba(15, 23, 42, 0.4) 0%, rgba(15, 23, 42, 0.14) 100%);
+  background: linear-gradient(90deg, rgba(15, 23, 42, 0.28) 0%, rgba(15, 23, 42, 0.08) 60%);
 }
 
 .golf-page__hero-home {
@@ -835,7 +857,7 @@ body {
 }
 
 .golf-list-panel {
-  border: 1px solid #e2e8f0;
+  border: 0;
   border-radius: 16px;
   background: #ffffff;
   padding: 18px;
@@ -917,6 +939,41 @@ body {
   word-break: break-word;
 }
 
+.golf-match-team {
+  font-weight: 500;
+  color: #0f172a;
+}
+
+.golf-match-team--winner {
+  color: #0f766e;
+  font-weight: 800;
+}
+
+.golf-match-vs {
+  color: #64748b;
+  font-weight: 600;
+}
+
+.golf-winner-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid #facc15;
+  border-radius: 999px;
+  padding: 4px 10px;
+  background: #fef9c3;
+  color: #92400e;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.golf-winner-chip--pending {
+  border-color: #cbd5e1;
+  background: #f8fafc;
+  color: #64748b;
+  font-weight: 600;
+}
+
 .golf-table th {
   background: #f8fafc;
   color: #475569;
@@ -959,6 +1016,114 @@ body {
 .golf-col-edit {
   width: 56px;
   text-align: center !important;
+}
+
+.golf-mobile-list {
+  display: none;
+}
+
+.golf-mobile-card {
+  border: 0;
+  border-radius: 0;
+  background: #ffffff;
+  padding: 12px;
+  display: grid;
+  gap: 8px;
+}
+
+.golf-mobile-card + .golf-mobile-card {
+  border-top: 1px solid #e2e8f0;
+}
+
+.golf-mobile-card__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 84px;
+  gap: 10px;
+  align-items: stretch;
+}
+
+.golf-mobile-card__main {
+  min-width: 0;
+}
+
+.golf-mobile-card__side {
+  display: grid;
+  justify-items: end;
+  align-content: space-between;
+  gap: 10px;
+}
+
+.golf-mobile-card__date {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.golf-mobile-card__title {
+  margin: 0;
+  color: #0f172a;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.golf-mobile-card__meta {
+  display: grid;
+  gap: 4px;
+}
+
+.golf-mobile-card__meta span {
+  color: #475569;
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.golf-mobile-card__result {
+  display: grid;
+  justify-items: end;
+  gap: 2px;
+}
+
+.golf-mobile-card__result-label {
+  color: #64748b;
+  font-size: 0.68rem;
+  font-weight: 600;
+}
+
+.golf-mobile-card__result-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 56px;
+  border-radius: 999px;
+  padding: 5px 10px;
+  font-size: 0.92rem;
+  line-height: 1;
+  font-weight: 800;
+}
+
+.golf-mobile-card__result-chip--winner {
+  border: 1px solid #facc15;
+  background: #fef9c3;
+  color: #92400e;
+}
+
+.golf-mobile-card__result-chip--pending {
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  color: #64748b;
+}
+
+.golf-mobile-card__result-chip--score {
+  border: 1px solid #99f6e4;
+  background: #f0fdfa;
+  color: #0f766e;
+}
+
+.golf-mobile-card--empty {
+  color: #64748b;
+  font-size: 0.84rem;
+  border-top: 1px solid #e2e8f0;
 }
 
 .golf-modal-backdrop {
@@ -1210,10 +1375,14 @@ body {
     padding: 0 0 56px;
   }
 
+  .golf-page__content {
+    padding-inline: 20px;
+  }
+
   .golf-page__hero {
-    height: 132px;
-    border-radius: 0 0 14px 14px;
-    margin-bottom: 18px;
+    height: 168px;
+    border-radius: 0;
+    margin-bottom: 24px;
   }
 
   .golf-page__actions {
@@ -1236,6 +1405,15 @@ body {
 
   .golf-highlight__meta {
     flex-wrap: wrap;
+  }
+
+  .golf-table-wrap {
+    display: none;
+  }
+
+  .golf-mobile-list {
+    display: grid;
+    gap: 10px;
   }
 
   .golf-modal-grid {

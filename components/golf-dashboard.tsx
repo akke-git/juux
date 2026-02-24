@@ -243,6 +243,11 @@ export function GolfDashboard() {
     return `${teamNameById.get(handicapTeam) ?? "알 수 없음"}/${match.handicap_amount}`;
   };
 
+  const getTeamNames = (match: Match) => ({
+    team1: match.team1_name ?? "팀1",
+    team2: match.team2_name ?? "팀2"
+  });
+
   const resetUserForm = () => setUserForm(defaultUserForm);
   const resetTeamForm = () => setTeamForm(defaultTeamForm);
   const resetRoundForm = () => setRoundForm(defaultRoundForm);
@@ -519,21 +524,21 @@ export function GolfDashboard() {
   if (loading) {
     return (
       <main className="golf-page">
-        <div className="container golf-page__loading">데이터를 불러오는 중...</div>
+        <div className="golf-page__content golf-page__loading">데이터를 불러오는 중...</div>
       </main>
     );
   }
 
   return (
     <main className="golf-page">
-      <div className="container">
-        <section className="golf-page__hero" aria-hidden="true">
-          <div className="golf-page__hero-overlay" />
-          <Link href="/" className="golf-page__hero-home" aria-label="메인 화면으로 이동">
-            ← back
-          </Link>
-        </section>
+      <section className="golf-page__hero" aria-hidden="true">
+        <div className="golf-page__hero-overlay" />
+        <Link href="/" className="golf-page__hero-home" aria-label="메인 화면으로 이동">
+          ← back
+        </Link>
+      </section>
 
+      <div className="golf-page__content">
         <header className="golf-page__header">
           <div>
             <p className="section-eyebrow">GOLF</p>
@@ -571,7 +576,7 @@ export function GolfDashboard() {
               </div>
               <div className="golf-highlight__winner">
                 <span className="golf-highlight__winner-label">승리팀</span>
-                <strong>{recentMatch.winner_name ?? "미정"}</strong>
+                <strong>{recentMatch.winner_name ?? "A/S"}</strong>
               </div>
             </>
           ) : (
@@ -630,11 +635,31 @@ export function GolfDashboard() {
                     <tr key={match.team_match_id}>
                       <td className="golf-col-date">{match.match_date}</td>
                       <td>
-                        {match.team1_name} vs {match.team2_name}
+                        <span
+                          className={`golf-match-team ${
+                            match.winner === match.team1_id ? "golf-match-team--winner" : ""
+                          }`}
+                        >
+                          {getTeamNames(match).team1}
+                        </span>
+                        <span className="golf-match-vs"> vs </span>
+                        <span
+                          className={`golf-match-team ${
+                            match.winner === match.team2_id ? "golf-match-team--winner" : ""
+                          }`}
+                        >
+                          {getTeamNames(match).team2}
+                        </span>
                       </td>
                       <td>{match.course_name}</td>
                       <td>{getHandicapLabel(match)}</td>
-                      <td>{match.winner_name ?? "-"}</td>
+                      <td>
+                        {match.winner_name ? (
+                          <span className="golf-winner-chip">{match.winner_name}</span>
+                        ) : (
+                          <span className="golf-winner-chip golf-winner-chip--pending">A/S</span>
+                        )}
+                      </td>
                       <td className="golf-col-edit">
                         <button
                           className="golf-table__action golf-table__action--icon"
@@ -649,6 +674,59 @@ export function GolfDashboard() {
                   ))}
                 </tbody>
               </table>
+            </div>
+            <div className="golf-mobile-list" aria-label="팀 매치 모바일 목록">
+              {filteredMatches.map((match) => (
+                <article key={`mobile-match-${match.team_match_id}`} className="golf-mobile-card">
+                  <div className="golf-mobile-card__layout">
+                    <div className="golf-mobile-card__main">
+                      <p className="golf-mobile-card__date">{match.match_date}</p>
+                      <p className="golf-mobile-card__title">
+                        <span
+                          className={`golf-match-team ${match.winner === match.team1_id ? "golf-match-team--winner" : ""}`}
+                        >
+                          {getTeamNames(match).team1}
+                        </span>
+                        <span className="golf-match-vs"> vs </span>
+                        <span
+                          className={`golf-match-team ${match.winner === match.team2_id ? "golf-match-team--winner" : ""}`}
+                        >
+                          {getTeamNames(match).team2}
+                        </span>
+                      </p>
+                      <div className="golf-mobile-card__meta">
+                        <span>코스: {match.course_name}</span>
+                        <span>핸디캡: {getHandicapLabel(match)}</span>
+                      </div>
+                    </div>
+                    <div className="golf-mobile-card__side">
+                      <button
+                        className="golf-table__action golf-table__action--icon"
+                        onClick={() => selectMatchForEdit(match)}
+                        aria-label="팀 매치 수정"
+                        title="수정"
+                      >
+                        ✎
+                      </button>
+                      <div className="golf-mobile-card__result">
+                        <span className="golf-mobile-card__result-label">승리팀</span>
+                        <span
+                          className={`golf-mobile-card__result-chip ${
+                            match.winner_name
+                              ? "golf-mobile-card__result-chip--winner"
+                              : "golf-mobile-card__result-chip--pending"
+                          }`}
+                        >
+                          {match.winner_name ?? "A/S"}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              ))}
+              {filteredMatches.length === 0 ? (
+                <article className="golf-mobile-card golf-mobile-card--empty">팀 매치 데이터가 없습니다.</article>
+              ) : null}
             </div>
           </article>
 
@@ -719,6 +797,43 @@ export function GolfDashboard() {
                   ))}
                 </tbody>
               </table>
+            </div>
+            <div className="golf-mobile-list" aria-label="개인 라운드 모바일 목록">
+              {filteredRounds.map((round) => (
+                <article key={`mobile-round-${round.id}`} className="golf-mobile-card">
+                  <div className="golf-mobile-card__layout">
+                    <div className="golf-mobile-card__main">
+                      <p className="golf-mobile-card__date">{round.play_date}</p>
+                      <p className="golf-mobile-card__title">{round.user_name ?? "-"}</p>
+                      <div className="golf-mobile-card__meta">
+                        <span>코스: {round.course_name}</span>
+                        <span>날씨: {round.weather ?? "-"}</span>
+                      </div>
+                    </div>
+                    <div className="golf-mobile-card__side">
+                      <button
+                        className="golf-table__action golf-table__action--icon"
+                        onClick={() => selectRoundForEdit(round)}
+                        aria-label="개인 라운드 수정"
+                        title="수정"
+                      >
+                        ✎
+                      </button>
+                      <div className="golf-mobile-card__result">
+                        <span className="golf-mobile-card__result-label">스코어</span>
+                        <span className="golf-mobile-card__result-chip golf-mobile-card__result-chip--score">
+                          {round.total_score ?? "-"}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              ))}
+              {filteredRounds.length === 0 ? (
+                <article className="golf-mobile-card golf-mobile-card--empty">
+                  개인 라운드 데이터가 없습니다.
+                </article>
+              ) : null}
             </div>
           </article>
         </section>
@@ -1065,7 +1180,7 @@ export function GolfDashboard() {
                 value={matchForm.winner}
                 onChange={(event) => setMatchForm((prev) => ({ ...prev, winner: event.target.value }))}
               >
-                <option value="">승자 없음</option>
+                <option value="">A/S</option>
                 {data.teams.map((team) => (
                   <option key={team.team_id} value={String(team.team_id)}>
                     {team.team_name}

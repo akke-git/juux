@@ -1,12 +1,78 @@
 import Link from "next/link";
-import {
-  latestRound,
-  latestTeamMatch,
-  personalRounds,
-  teamMatches
-} from "@/data/golf";
+import { unstable_noStore as noStore } from "next/cache";
+import { getGolfDashboardData } from "@/lib/golf-repository";
 
-export function GolfSection() {
+const toShortDate = (value: string) => {
+  const [year, month, day] = value.split("-");
+  if (!year || !month || !day) {
+    return value;
+  }
+
+  return `${month}.${day}`;
+};
+
+const toLongDate = (value: string) => {
+  const [year, month, day] = value.split("-");
+  if (!year || !month || !day) {
+    return value;
+  }
+
+  return `${year}.${month}.${day}`;
+};
+
+const toMatchResult = (match: {
+  winner: number | null;
+  team1_id: number;
+  team2_id: number;
+  team1_name: string | null;
+  team2_name: string | null;
+}) => {
+  if (match.winner === match.team1_id) {
+    return { label: `${match.team1_name ?? "A팀"} 승리`, tone: "win" as const };
+  }
+
+  if (match.winner === match.team2_id) {
+    return { label: `${match.team2_name ?? "B팀"} 승리`, tone: "win" as const };
+  }
+
+  return { label: "A/S", tone: "pending" as const };
+};
+
+const toMatchTitle = (match: {
+  team1_name: string | null;
+  team2_name: string | null;
+  course_name: string;
+}) => {
+  if (match.team1_name || match.team2_name) {
+    return `${match.team1_name ?? "팀1"} vs ${match.team2_name ?? "팀2"}`;
+  }
+
+  return match.course_name;
+};
+
+export async function GolfSection() {
+  noStore();
+
+  let rounds: Awaited<ReturnType<typeof getGolfDashboardData>>["rounds"] = [];
+  let matches: Awaited<ReturnType<typeof getGolfDashboardData>>["matches"] = [];
+
+  try {
+    const data = await getGolfDashboardData();
+    rounds = data.rounds;
+    matches = data.matches;
+  } catch {
+    rounds = [];
+    matches = [];
+  }
+
+  const latestRound = rounds[0] ?? null;
+  const latestTeamMatch = matches[0] ?? null;
+  const latestTeamMatchResult = latestTeamMatch
+    ? toMatchResult(latestTeamMatch)
+    : { label: "A/S", tone: "pending" as const };
+  const personalRounds = rounds.slice(0, 4);
+  const teamMatches = matches.slice(0, 4);
+
   return (
     <section className="golf">
       <div className="container">
@@ -26,10 +92,14 @@ export function GolfSection() {
             <div className="latest-card">
               <div>
                 <p className="latest-card__label">최근 매치</p>
-                <h4>{latestTeamMatch.name}</h4>
-                <p className="latest-card__meta">{latestTeamMatch.meta}</p>
+                <h4>{latestTeamMatch ? toMatchTitle(latestTeamMatch) : "-"}</h4>
+                <p className="latest-card__meta">
+                  {latestTeamMatch ? toLongDate(latestTeamMatch.match_date) : "-"}
+                </p>
               </div>
-              <span className="badge badge--win">{latestTeamMatch.result}</span>
+              <span className={`badge ${latestTeamMatchResult.tone === "win" ? "badge--win" : "badge--pending"}`}>
+                {latestTeamMatchResult.label}
+              </span>
             </div>
 
             <div className="table-wrap">
@@ -38,17 +108,30 @@ export function GolfSection() {
                 <span>매치명</span>
                 <span>결과</span>
               </div>
-              {teamMatches.map((match) => (
-                <div key={`${match.date}-${match.name}`} className="table-row">
-                  <span>{match.date}</span>
-                  <span>{match.name}</span>
+              {teamMatches.map((match) => {
+                const result = toMatchResult(match);
+
+                return (
+                  <div key={`${match.match_date}-${match.team_match_id}`} className="table-row">
+                    <span>{toShortDate(match.match_date)}</span>
+                    <span>{toMatchTitle(match)}</span>
+                    <span>
+                      <em className={`badge ${result.tone === "win" ? "badge--win" : "badge--pending"}`}>
+                        {result.label}
+                      </em>
+                    </span>
+                  </div>
+                );
+              })}
+              {teamMatches.length === 0 && (
+                <div className="table-row">
+                  <span>-</span>
+                  <span>데이터 없음</span>
                   <span>
-                    <em className={`badge ${match.win ? "badge--win" : "badge--lose"}`}>
-                      {match.result}
-                    </em>
+                    <em className="badge badge--pending">-</em>
                   </span>
                 </div>
-              ))}
+              )}
             </div>
           </article>
 
@@ -61,11 +144,13 @@ export function GolfSection() {
             <div className="latest-card">
               <div>
                 <p className="latest-card__label">최근 라운드</p>
-                <h4>{latestRound.course}</h4>
-                <p className="latest-card__meta">{latestRound.date}</p>
+                <h4>{latestRound?.course_name ?? "-"}</h4>
+                <p className="latest-card__meta">
+                  {latestRound ? toLongDate(latestRound.play_date) : "-"}
+                </p>
               </div>
               <div className="score">
-                <strong>{latestRound.score}</strong>
+                <strong>{latestRound?.total_score ?? "-"}</strong>
                 <span>스코어</span>
               </div>
             </div>
@@ -77,12 +162,19 @@ export function GolfSection() {
                 <span>스코어</span>
               </div>
               {personalRounds.map((round) => (
-                <div key={`${round.date}-${round.course}`} className="table-row">
-                  <span>{round.date}</span>
-                  <span>{round.course}</span>
-                  <span className="table-score">{round.score}</span>
+                <div key={`${round.play_date}-${round.id}`} className="table-row">
+                  <span>{toShortDate(round.play_date)}</span>
+                  <span>{round.course_name}</span>
+                  <span className="table-score">{round.total_score ?? "-"}</span>
                 </div>
               ))}
+              {personalRounds.length === 0 && (
+                <div className="table-row">
+                  <span>-</span>
+                  <span>데이터 없음</span>
+                  <span className="table-score">-</span>
+                </div>
+              )}
             </div>
           </article>
         </div>

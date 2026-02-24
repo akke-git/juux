@@ -7,7 +7,7 @@ export function HeroSection() {
       <div className="hero__content container">
         <h1 className="hero__title">Juux.net</h1>
         <p className="hero__subtitle">
-          개인 서버 기반의 서비스 허브. Docker 서비스, 골프 기록, 블로그
+          앱 서비스s, 개인 정보관리, golf match 관리
         </p>
         <div className="hero__badges">
           {heroBadges.map((badge) => (

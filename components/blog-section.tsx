@@ -17,22 +17,30 @@ export function BlogSection() {
 
         <div className="blog__grid">
           {blogPosts.map((post) => (
-            <article className="blog-card" key={`${post.date}-${post.title}`}>
-              <div className="blog-card__image-wrap">
-                <Image
-                  src={post.image}
-                  alt={post.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  className="blog-card__image"
-                />
-              </div>
-              <div className="blog-card__body">
-                <p className="blog-card__date">{post.date}</p>
-                <h3 className="blog-card__title">{post.title}</h3>
-                <p className="blog-card__desc">{post.desc}</p>
-              </div>
-            </article>
+            <a
+              className="blog-card blog-card--link"
+              href={post.url}
+              target="_blank"
+              rel="noreferrer"
+              key={`${post.date}-${post.title}`}
+            >
+              <article>
+                <div className="blog-card__image-wrap">
+                  <Image
+                    src={post.image}
+                    alt={post.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="blog-card__image"
+                  />
+                </div>
+                <div className="blog-card__body">
+                  <p className="blog-card__date">{post.date}</p>
+                  <h3 className="blog-card__title">{post.title}</h3>
+                  <p className="blog-card__desc">{post.desc}</p>
+                </div>
+              </article>
+            </a>
           ))}
         </div>
       </div>

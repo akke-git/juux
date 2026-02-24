@@ -1,4 +1,4 @@
-import { updateUser } from "@/lib/golf-repository";
+import { deleteUser, updateUser } from "@/lib/golf-repository";
 import { badRequest, toNumber, toStringValue } from "@/lib/golf-api-utils";
 
 type Context = {
@@ -25,7 +25,6 @@ export async function PUT(request: Request, context: Context) {
     await updateUser(userId, {
       username,
       email,
-      password: toStringValue(body.password),
       display_name: toStringValue(body.display_name),
       handicap: toNumber(body.handicap),
       profile_image: toStringValue(body.profile_image)
@@ -34,6 +33,28 @@ export async function PUT(request: Request, context: Context) {
     return Response.json({ ok: true });
   } catch (error) {
     const message = error instanceof Error ? error.message : "failed to update user";
+    return Response.json({ error: message }, { status: 500 });
+  }
+}
+
+export async function DELETE(_request: Request, context: Context) {
+  try {
+    const { id } = await context.params;
+    const userId = Number(id);
+
+    if (!Number.isFinite(userId)) {
+      return badRequest("유효하지 않은 사용자 ID입니다.");
+    }
+
+    await deleteUser(userId);
+    return Response.json({ ok: true });
+  } catch (error) {
+    const code = typeof error === "object" && error !== null ? (error as { code?: string }).code : undefined;
+    if (code === "ER_ROW_IS_REFERENCED_2") {
+      return Response.json({ error: "연결된 팀/라운드 데이터가 있어 삭제할 수 없습니다." }, { status: 409 });
+    }
+
+    const message = error instanceof Error ? error.message : "failed to delete user";
     return Response.json({ error: message }, { status: 500 });
   }
 }
