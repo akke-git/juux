@@ -1,4 +1,6 @@
 
+import Link from "next/link";
+
 export function HeroSection() {
   const heroBadges = ["Self-hosted", "Tailscale Secure", "8 Services"];
 
@@ -19,6 +21,9 @@ export function HeroSection() {
         <p className="hero__subtitle">
           컨텐츠 추가중
         </p>
+        <Link href="/drop" className="hero__linkButton">
+          drop
+        </Link>
       </div>
     </section>
   );

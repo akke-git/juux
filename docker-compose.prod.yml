@@ -28,12 +28,15 @@ services:
     environment:
       NODE_ENV: production
       PORT: 3000
+      DROPBOX_DIR: /app/storage/dropbox
       GOLF_DB_HOST: mysql
       GOLF_DB_PORT: 3306
       GOLF_DB_USER: root
       GOLF_DB_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       GOLF_DB_NAME: ${MYSQL_DATABASE:-golf}
       TZ: ${TZ:-Asia/Seoul}
+    volumes:
+      - ./storage:/app/storage
     depends_on:
       mysql:
         condition: service_healthy

@@ -10,12 +10,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "archiver": "^7.0.1",
     "mysql2": "^3.12.0",
     "next": "15.1.6",
     "react": "19.0.0",
     "react-dom": "19.0.0"
   },
   "devDependencies": {
+    "@types/archiver": "^7.0.0",
     "@types/node": "22.10.2",
     "@types/react": "19.0.2",
     "@types/react-dom": "19.0.2",

@@ -11,3 +11,6 @@ yarn-error.log*
 .DS_Store
 .env.local
 *.tsbuildinfo
+storage/dropbox/*
+!storage/.gitkeep
+!storage/dropbox/.gitkeep

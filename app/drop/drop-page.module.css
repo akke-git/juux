@@ -1,0 +1,379 @@
+.page {
+  min-height: 100vh;
+  padding: 48px 20px 72px;
+  background:
+    radial-gradient(circle at top left, rgba(15, 118, 110, 0.12), transparent 28%),
+    linear-gradient(180deg, #f4fbfa 0%, #fafafa 45%, #f8fafc 100%);
+}
+
+.shell {
+  width: min(100%, 1120px);
+  margin: 0 auto;
+  display: grid;
+  gap: 24px;
+}
+
+.hero {
+  display: grid;
+  gap: 12px;
+}
+
+.heroTop {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.backButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border: 1px solid rgba(15, 118, 110, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  color: #0f766e;
+  font-size: 0.95rem;
+  font-weight: 700;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.backButton:hover {
+  background: #ffffff;
+  border-color: rgba(15, 118, 110, 0.36);
+  transform: translateY(-1px);
+}
+
+.eyebrow {
+  margin: 0;
+  color: #0f766e;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.title {
+  font-size: clamp(2.4rem, 5vw, 4.8rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.description {
+  max-width: 760px;
+  margin: 0;
+  color: #475569;
+  font-size: 1.02rem;
+}
+
+.panelGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.dropPanel,
+.listPanel {
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(8px);
+}
+
+.dropPanel {
+  padding: 24px;
+  display: grid;
+  gap: 18px;
+}
+
+.dropZone {
+  position: relative;
+  min-height: 240px;
+  border: 2px dashed rgba(15, 118, 110, 0.32);
+  border-radius: 24px;
+  background:
+    linear-gradient(135deg, rgba(240, 253, 250, 0.96), rgba(248, 250, 252, 0.96)),
+    linear-gradient(180deg, rgba(15, 118, 110, 0.08), transparent);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 24px;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dropZone:hover,
+.dropZoneActive {
+  transform: translateY(-2px);
+  border-color: rgba(15, 118, 110, 0.8);
+  box-shadow: 0 14px 30px rgba(15, 118, 110, 0.12);
+}
+
+.dropIcon {
+  width: 84px;
+  height: 84px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 20px;
+  background: rgba(15, 118, 110, 0.12);
+  color: #0f766e;
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.dropTitle {
+  margin: 0;
+  font-size: clamp(1.45rem, 2.2vw, 1.8rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.dropText {
+  margin: 10px auto 0;
+  max-width: 420px;
+  color: #64748b;
+}
+
+.hintRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 18px;
+}
+
+.hint {
+  padding: 9px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  color: #334155;
+  font-size: 0.9rem;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.status {
+  min-height: 24px;
+  color: #0f766e;
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.button,
+.buttonMuted {
+  border: 0;
+  border-radius: 999px;
+  padding: 11px 16px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.button {
+  background: #0f766e;
+  color: #ffffff;
+}
+
+.buttonMuted {
+  background: #eef2f7;
+  color: #0f172a;
+}
+
+.button:hover,
+.buttonMuted:hover {
+  transform: translateY(-1px);
+}
+
+.button:disabled,
+.buttonMuted:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.listPanel {
+  padding: 20px;
+  display: grid;
+  gap: 14px;
+}
+
+.listHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+
+.listTitle {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.listMeta {
+  color: #64748b;
+  font-size: 0.92rem;
+}
+
+.empty {
+  padding: 28px;
+  border-radius: 18px;
+  background: #f8fafc;
+  color: #64748b;
+  text-align: center;
+}
+
+.folderSection,
+.fileSection {
+  display: grid;
+  gap: 12px;
+}
+
+.sectionLabel {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #0f766e;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.folderList,
+.fileList {
+  display: grid;
+  gap: 12px;
+}
+
+.folderCard,
+.fileCard {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 20px;
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  background: #ffffff;
+}
+
+.folderCard {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+}
+
+
+.fileTop {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: start;
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  margin-top: 4px;
+}
+
+.fileName {
+  margin: 0;
+  font-weight: 700;
+  color: #0f172a;
+  word-break: break-word;
+}
+
+.fileInfo {
+  margin: 6px 0 0;
+  color: #64748b;
+  font-size: 0.92rem;
+}
+
+.fileActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.textButton {
+  border: 0;
+  background: transparent;
+  color: #0f766e;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+}
+
+.dangerButton {
+  border: 0;
+  border-radius: 999px;
+  padding: 9px 12px;
+  background: #fef2f2;
+  color: #b91c1c;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.selectionBar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: #f0fdfa;
+  color: #115e59;
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding-inline: 14px;
+    padding-top: 24px;
+  }
+
+  .dropPanel,
+  .listPanel {
+    border-radius: 22px;
+  }
+
+  .dropPanel {
+    padding: 16px;
+  }
+
+  .dropZone {
+    min-height: 220px;
+    padding: 20px 18px;
+  }
+
+  .fileTop {
+    grid-template-columns: auto 1fr;
+  }
+
+  .fileActions {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+  }
+}

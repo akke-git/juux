@@ -14,6 +14,7 @@ npm run dev
 ## 주요 기능
 
 - Hero 섹션 (`Juux.net`, 배지형 정보 요소)
+- Drop Space (`/drop`) 임시 파일 업로드/다운로드/삭제
 - Services 섹션 (아이콘 + 서비스명, 데스크탑 8열 / 모바일 2열)
 - Golf 섹션 (Team Match / My Rounds 요약)
 - Golf 관리 페이지 (`/golf`, 사용자/팀/라운드/매치 CRUD API 연동)
@@ -24,8 +25,10 @@ npm run dev
 ## 주요 경로
 
 - `app/page.tsx`
+- `app/drop/page.tsx`
 - `app/golf/page.tsx`
 - `app/api/golf/**`
+- `app/api/drop/**`
 - `components/hero-section.tsx`
 - `components/services-section.tsx`
 - `components/golf-dashboard.tsx`
@@ -35,6 +38,8 @@ npm run dev
 ## 환경 변수
 
 ```bash
+DROPBOX_DIR=./storage/dropbox
+DROPBOX_MAX_FILE_MB=500
 GOLF_DB_HOST=127.0.0.1
 GOLF_DB_PORT=3306
 GOLF_DB_USER=root
@@ -43,6 +48,8 @@ GOLF_DB_NAME=golf
 ```
 
 `lib/mysql.ts`에서 위 값을 읽어 MySQL 연결 풀을 생성합니다.
+
+`/drop` 기능은 `DROPBOX_DIR`에 파일을 저장합니다. 다수 파일 드래그앤드롭 업로드를 지원하고, 폴더 선택 업로드 시 하위 파일 구조를 유지합니다. 파일은 개별 다운로드, 폴더는 zip 다운로드를 지원합니다.
 
 ## 배포 (Docker)
 

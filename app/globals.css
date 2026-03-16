@@ -110,6 +110,30 @@ a {
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
+.hero__linkButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 112px;
+  padding: 12px 20px;
+  border: 1px solid rgba(6, 95, 70, 0.9);
+  border-radius: 999px;
+  background: rgba(6, 95, 70, 0.92);
+  backdrop-filter: blur(8px);
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+}
+
+.hero__linkButton:hover {
+  background: rgba(4, 78, 56, 0.96);
+  border-color: rgba(4, 78, 56, 1);
+  transform: translateY(-1px);
+}
+
 .hero__badges {
   display: flex;
   flex-wrap: wrap;

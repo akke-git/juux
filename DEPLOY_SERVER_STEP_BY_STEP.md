@@ -5,10 +5,11 @@
 | 항목 | 내용 |
 |---|---|
 | 컨테이너 | 2개 (`juux` 앱, `mysql` DB) |
-| 포트 | 서버 80 → Next.js 3000 직접 연결 (nginx 없음) |
+| 포트 | 서버 3000 → Next.js 3000, nginx-proxy-manager로 리버스 프록시 |
+| 네트워크 | `akke` 외부 네트워크 (nginx-proxy-manager와 공유) |
 | DB | MySQL 8.4, 볼륨으로 데이터 영구 보존 |
 | 앱 빌드 | Next.js standalone (multi-stage Docker 빌드) |
-| 배포 경로 | `/opt/juux` |
+| 배포 경로 | `/docker/juux` |
 
 **최초 배포:** 접속 → 코드 배치 → 환경변수 → 컨테이너 정리 → 실행 → DB 마이그레이션
 **재배포:** `git pull` → `server_deploy.sh`
@@ -19,11 +20,13 @@
 
 ## 0) 준비물
 
-- 서버 SSH 정보: `서버계정@서버IP`
+- 서버 SSH 정보: `서버계정@서버IP` (Tailscale 환경: `juu@juux`)
 - Git 저장소 URL
 - 로컬 MySQL 비밀번호
 - 서버에 Docker / Docker Compose 설치
+- 서버에 `akke` Docker 네트워크 존재 (`docker network create akke`)
 - 로컬 PC에 `mysql-client` 설치 (단계 6 마이그레이션 시 필요)
+  - Arch/CachyOS: `sudo pacman -S mysql-clients`
   - Ubuntu/Debian: `sudo apt install mysql-client`
   - macOS: `brew install mysql-client`
 
@@ -34,13 +37,7 @@
 실행 위치: **내 PC 터미널**
 
 ```bash
-ssh 서버계정@서버IP
-```
-
-예시:
-
-```bash
-ssh ubuntu@1.2.3.4
+ssh juu@juux
 ```
 
 ---
@@ -50,9 +47,9 @@ ssh ubuntu@1.2.3.4
 실행 위치: **서버 터미널**
 
 ```bash
-sudo mkdir -p /opt/juux
-sudo chown -R $USER:$USER /opt/juux
-cd /opt/juux
+sudo mkdir -p /docker/juux
+sudo chown -R $USER:$USER /docker/juux
+cd /docker/juux
 ```
 
 처음 배포:
@@ -74,7 +71,7 @@ git pull
 실행 위치: **서버 터미널**
 
 ```bash
-cd /opt/juux
+cd /docker/juux
 cp .env.prod.example .env.prod
 nano .env.prod
 ```
@@ -97,7 +94,7 @@ TZ=Asia/Seoul
 실행 위치: **서버 터미널**
 
 ```bash
-cd /opt/juux
+cd /docker/juux
 ./scripts/server_reset_old_containers.sh
 ```
 
@@ -117,13 +114,13 @@ cd /opt/juux
 실행 위치: **서버 터미널**
 
 ```bash
-cd /opt/juux
+cd /docker/juux
 ./scripts/server_deploy.sh
 ```
 
 생성되는 컨테이너 (2개):
 
-- 앱: `juux` (포트 80으로 직접 서비스)
+- 앱: `juux` (포트 3000, nginx-proxy-manager를 통해 서비스)
 - DB: `mysql`
 
 상태 확인:
@@ -141,22 +138,15 @@ docker compose --env-file .env.prod -f docker-compose.prod.yml ps
 ```bash
 cd /home/juu/project/juux
 
-REMOTE_SSH=서버계정@서버IP \
+REMOTE_SSH=juu@juux \
 SRC_MYSQL_USER=root \
 SRC_MYSQL_PASSWORD=로컬MYSQL비밀번호 \
 ./scripts/migrate_mysql_to_server.sh
 ```
 
-예시:
-
-```bash
-REMOTE_SSH=ubuntu@1.2.3.4 \
-SRC_MYSQL_USER=root \
-SRC_MYSQL_PASSWORD=abcd1234 \
-./scripts/migrate_mysql_to_server.sh
-```
-
 이 스크립트는 시스템 DB를 제외한 모든 로컬 DB를 dump해서 서버의 `mysql` 컨테이너로 import 합니다.
+
+> **주의:** 스크립트 실행 전 서버의 `mysql` 컨테이너가 실행 중이어야 합니다 (단계 5 완료 후).
 
 ---
 
@@ -165,8 +155,15 @@ SRC_MYSQL_PASSWORD=abcd1234 \
 실행 위치: **서버 터미널**
 
 ```bash
-docker exec -it mysql sh -lc 'mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -e "SHOW DATABASES;"'
-docker exec -it mysql sh -lc 'mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -e "USE golf; SHOW TABLES;"'
+docker exec -it mysql mysql -uroot -p
+```
+
+비밀번호 입력 후:
+
+```sql
+SHOW DATABASES;
+USE golf;
+SHOW TABLES;
 ```
 
 ---
@@ -176,27 +173,29 @@ docker exec -it mysql sh -lc 'mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -e "USE golf
 실행 위치: **서버 터미널**
 
 ```bash
-cd /opt/juux
+cd /docker/juux
 docker compose --env-file .env.prod -f docker-compose.prod.yml logs -f juux
 docker compose --env-file .env.prod -f docker-compose.prod.yml logs -f mysql
 ```
 
 ---
 
-## 9) HTTPS 설정 (권장)
+## 9) nginx-proxy-manager 프록시 설정
 
-현재 nginx는 HTTP(80)만 지원합니다. 외부 접근이 있는 서버라면 HTTPS 설정을 권장합니다.
+nginx-proxy-manager 웹UI (포트 81) 접속 후 Proxy Hosts 설정:
 
-**옵션 A. Cloudflare 프록시 (가장 간단)**
+- **Domain Name**: 사용할 도메인
+- **Forward Hostname**: `juux` (컨테이너 이름)
+- **Forward Port**: `3000`
 
-1. 도메인의 DNS를 Cloudflare로 위임
-2. A 레코드에 서버 IP 등록, 프록시(주황 구름) 활성화
-3. Cloudflare가 자동으로 HTTPS 처리 — 서버 설정 불필요
+> `juux` 컨테이너와 nginx-proxy-manager가 동일한 `akke` 네트워크에 있어야 컨테이너 이름으로 연결 가능합니다.
 
-**옵션 B. Let's Encrypt + certbot**
+---
 
-```bash
-# 서버에서 실행
-sudo apt install certbot python3-certbot-nginx
-sudo certbot --nginx -d 도메인명
-```
+## 10) HTTPS 설정 (권장)
+
+nginx-proxy-manager에서 프록시 호스트 설정 시 **SSL 탭**에서 Let's Encrypt 인증서를 바로 발급받을 수 있습니다.
+
+1. Proxy Host 추가/편집
+2. SSL 탭 → `Request a new SSL Certificate`
+3. Force SSL 활성화
