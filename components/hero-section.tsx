@@ -1,20 +1,19 @@
-
 import Link from "next/link";
 
 export function HeroSection() {
   const heroBadges = ["Self-hosted", "Tailscale Secure", "8 Services"];
 
   return (
-    <section className="hero">
-      <div className="hero__overlay"></div>
+    <section className="hero" aria-label="Site introduction">
+      <div className="hero__overlay" aria-hidden="true"></div>
       <div className="container hero__content">
-        <div className="hero__badges">
+        <ul className="hero__badges" aria-label="Features">
           {heroBadges.map((badge) => (
-            <span key={badge} className="hero__badge">
+            <li key={badge} className="hero__badge">
               {badge}
-            </span>
+            </li>
           ))}
-        </div>
+        </ul>
         <h1 className="hero__title">
           Juux.net
         </h1>

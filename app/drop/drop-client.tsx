@@ -229,23 +229,44 @@ export function DropClient() {
     anchor.remove();
   }
 
-  async function downloadSelected() {
+  async function downloadSelectedAsZip() {
     if (selected.length === 0) {
       return;
     }
 
+    if (selected.length === 1) {
+      downloadOne(selected[0]);
+      return;
+    }
+
     setIsDownloadingMany(true);
-    setStatusMessage(`${selected.length}개 파일 다운로드 시작`);
+    setStatusMessage(`${selected.length}개 파일 ZIP 압축 중...`);
 
     try {
-      for (const relativePath of selected) {
-        downloadOne(relativePath);
-        await new Promise((resolve) => window.setTimeout(resolve, 180));
+      const response = await fetch("/api/drop/zip", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ paths: selected }),
+      });
+
+      if (!response.ok) {
+        const result = await response.json();
+        throw new Error(result.error ?? "ZIP 다운로드에 실패했습니다.");
       }
 
-      setStatusMessage(
-        "선택한 파일 다운로드를 시작했습니다. 브라우저가 다중 다운로드 허용을 물으면 승인하세요."
-      );
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.download = `drop-${selected.length}files.zip`;
+      document.body.append(anchor);
+      anchor.click();
+      anchor.remove();
+      URL.revokeObjectURL(url);
+
+      setStatusMessage(`${selected.length}개 파일 ZIP 다운로드 완료`);
+    } catch (error) {
+      setStatusMessage(error instanceof Error ? error.message : "ZIP 다운로드에 실패했습니다.");
     } finally {
       setIsDownloadingMany(false);
     }
@@ -469,10 +490,10 @@ export function DropClient() {
                   <button
                     type="button"
                     className={styles.button}
-                    onClick={() => void downloadSelected()}
+                    onClick={() => void downloadSelectedAsZip()}
                     disabled={isDownloadingMany}
                   >
-                    선택 파일 바로 다운로드
+                    {selected.length > 1 ? "ZIP 다운로드" : "다운로드"}
                   </button>
                   <button
                     type="button"
@@ -489,7 +510,29 @@ export function DropClient() {
               <div className={styles.empty}>아직 업로드된 파일이 없습니다.</div>
             ) : (
               <div className={styles.fileSection}>
-                <h3 className={styles.sectionLabel}>Files</h3>
+                <div className={styles.sectionLabelRow}>
+                  <label className={styles.selectAllLabel}>
+                    <input
+                      className={styles.checkbox}
+                      type="checkbox"
+                      checked={files.length > 0 && selected.length === files.length}
+                      ref={(el) => {
+                        if (el) {
+                          el.indeterminate = selected.length > 0 && selected.length < files.length;
+                        }
+                      }}
+                      onChange={() => {
+                        if (selected.length === files.length) {
+                          setSelected([]);
+                        } else {
+                          setSelected(files.map((f) => f.relativePath));
+                        }
+                      }}
+                      aria-label="전체 선택"
+                    />
+                    <h3 className={styles.sectionLabel}>Files</h3>
+                  </label>
+                </div>
                 <div className={styles.fileList}>
                 {files.map((file) => (
                   <article key={file.relativePath} className={styles.fileCard}>

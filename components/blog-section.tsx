@@ -3,7 +3,7 @@ import { blogPosts } from "@/data/blog";
 
 export function BlogSection() {
   return (
-    <section className="blog">
+    <section className="blog" id="blog" aria-label="Blog">
       <div className="container">
         <header className="blog__head">
           <div>

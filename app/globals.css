@@ -1,33 +1,124 @@
-:root {
-  --bg-page: #fafafa; /* Off-white background */
-  --bg-surface: #ffffff;
-  --bg-surface-hover: #f4f4f5;
-  
-  --text-primary: #18181b; /* Zinc-900 */
-  --text-secondary: #52525b; /* Zinc-600 */
-  --text-muted: #a1a1aa; /* Zinc-400 */
-  
-  --accent-primary: #0f766e; /* Deep Teal */
-  --accent-glow: rgba(15, 118, 110, 0.1);
-  --accent-secondary: #0369a1;
+/* ============================================================
+   JUUX Design System
+   - Typography: Space Grotesk (display) + Noto Sans KR (body)
+   - Colors: Warm slate neutrals + forest accent
+   - Dark mode: prefers-color-scheme
+   ============================================================ */
 
-  --card-border: #e4e4e7; /* Zinc-200 */
-  --card-border-glow: #0f766e;
-  
-  --glass-blur: blur(0); /* Removed glassmorphism */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
-  --shadow-glow: none;
-  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-  
-  --radius-lg: 20px;
-  --radius-md: 12px;
-  --radius-sm: 8px;
-  
-  --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+:root {
+  /* Neutrals — warm-tinted, never pure black/white */
+  --bg-page: #f8f8f6;
+  --bg-surface: #fefefe;
+  --bg-surface-hover: #f3f3f1;
+
+  --text-primary: #1a1a1a;
+  --text-secondary: #555550;
+  --text-muted: #93938e;
+
+  /* Accent — deep forest green, warmer than generic teal */
+  --accent-primary: #2d6a4f;
+  --accent-light: rgba(45, 106, 79, 0.08);
+  --accent-secondary: #1b4332;
+
+  /* Borders & Surfaces */
+  --card-border: #e2e1dd;
+  --card-border-hover: #2d6a4f;
+
+  /* Shadows — subtle, warm-toned */
+  --shadow-sm: 0 1px 2px rgba(26, 26, 26, 0.04);
+  --shadow-md: 0 4px 12px rgba(26, 26, 26, 0.06);
+  --shadow-hover: 0 8px 24px rgba(26, 26, 26, 0.08);
+
+  /* Radii */
+  --radius-lg: 16px;
+  --radius-md: 10px;
+  --radius-sm: 6px;
+
+  /* Timing — smooth expo ease-out */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: all 0.25s var(--ease-out);
+
+  /* Semantic status colors */
+  --color-win: #2d6a4f;
+  --color-win-bg: #e6f4ed;
+  --color-lose: #c2291f;
+  --color-lose-bg: #fce8e6;
+  --color-amber: #92400e;
+  --color-amber-light: #fffbeb;
+  --color-amber-border: #fef3c7;
+  --color-danger: #b91c1c;
+  --color-danger-bg: #fef2f2;
+  --color-danger-border: #fecaca;
+  --color-danger-hover-bg: #fee2e2;
+  --color-danger-hover-border: #ef4444;
+  --color-error: #c2291f;
+
+  /* Highlight accent */
+  --highlight-bar: #3d5a47;
+  --highlight-eyebrow: #4a6352;
+  --highlight-bg: linear-gradient(135deg, var(--bg-surface) 0%, #f5f5f2 100%);
+
+  /* Golf new-item accent */
+  --new-item-border: #2d6a4f;
+  --new-item-color: #2d6a4f;
+  --new-item-bg: #f0f9f4;
+
+  /* Modal side panel bg */
+  --modal-side-bg: #fefefe;
 }
 
-* {
+[data-theme="dark"] {
+    --bg-page: #151514;
+    --bg-surface: #1e1e1c;
+    --bg-surface-hover: #282826;
+
+    --text-primary: #e8e8e4;
+    --text-secondary: #a0a09a;
+    --text-muted: #6b6b66;
+
+    --accent-primary: #52b788;
+    --accent-light: rgba(82, 183, 136, 0.1);
+    --accent-secondary: #74c69d;
+
+    --card-border: #333330;
+    --card-border-hover: #52b788;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.35);
+
+    --color-win: #52b788;
+    --color-win-bg: #1a2f23;
+    --color-lose: #f87171;
+    --color-lose-bg: #2a1515;
+    --color-amber: #fbbf24;
+    --color-amber-light: #2a2210;
+    --color-amber-border: #4a3a10;
+    --color-danger: #f87171;
+    --color-danger-bg: #2a1515;
+    --color-danger-border: #5a2020;
+    --color-danger-hover-bg: #3a1818;
+    --color-danger-hover-border: #ef4444;
+    --color-error: #f87171;
+
+    --highlight-bar: #52b788;
+    --highlight-eyebrow: #74c69d;
+    --highlight-bg: linear-gradient(135deg, var(--bg-surface) 0%, #222220 100%);
+
+    --new-item-border: #52b788;
+    --new-item-color: #52b788;
+    --new-item-bg: #1a2f23;
+
+    --modal-side-bg: #1e1e1c;
+}
+
+/* ============================================================
+   Reset & Base
+   ============================================================ */
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -35,79 +126,172 @@ body {
   margin: 0;
   background-color: var(--bg-page);
   color: var(--text-primary);
-  font-family:
-    "Inter",
-    "Pretendard",
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
+  font-family: var(--font-body), "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 
+/* ============================================================
+   Focus — visible keyboard focus ring
+   ============================================================ */
+
+:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ============================================================
+   Theme Toggle
+   ============================================================ */
+
+.theme-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 200;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--card-border);
+  border-radius: 50%;
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  box-shadow: var(--shadow-md);
+  transition: var(--transition-smooth);
+}
+
+.theme-toggle:hover {
+  background: var(--bg-surface-hover);
+  transform: scale(1.08);
+}
+
+/* ============================================================
+   Container
+   ============================================================ */
+
 .container {
-  width: min(100%, 1100px); /* Slightly narrower for readability */
+  width: min(100%, 1100px);
   margin: 0 auto;
   padding-inline: 24px;
 }
 
-/* Base Typography & Components */
+/* ============================================================
+   Typography
+   ============================================================ */
+
 h1, h2, h3, h4 {
   margin: 0;
-  line-height: 1.25;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display), var(--font-body), sans-serif;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
 }
 
 a {
   color: var(--accent-primary);
   text-decoration: none;
-  transition: var(--transition-smooth);
+  transition: color 0.2s var(--ease-out);
 }
 
-/* --- HERO SECTION --- */
+a:hover {
+  color: var(--accent-secondary);
+}
+
+/* ============================================================
+   HERO — left-aligned, asymmetric
+   ============================================================ */
+
 .hero {
   position: relative;
   min-height: 80vh;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 120px 20px 80px;
+  padding: 120px 0 80px;
   background-color: var(--bg-surface);
-  background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.4)),
-    url("/images/generated-1770788887921.png");
+  background-image: url("/images/generated-1770788887921.png");
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
   border-bottom: 1px solid var(--card-border);
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    rgba(26, 26, 26, 0.72) 0%,
+    rgba(26, 26, 26, 0.45) 50%,
+    rgba(26, 26, 26, 0.15) 100%
+  );
+}
+
+[data-theme="dark"] .hero__overlay {
+  background: linear-gradient(
+    105deg,
+    rgba(21, 21, 20, 0.85) 0%,
+    rgba(21, 21, 20, 0.6) 50%,
+    rgba(21, 21, 20, 0.3) 100%
+  );
 }
 
 .hero__content {
   position: relative;
   z-index: 1;
-  text-align: center;
-  max-width: 800px;
-  padding: 40px;
+  text-align: left;
+  max-width: 640px;
+}
+
+.hero__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  margin-bottom: 28px;
+}
+
+.hero__badge {
+  padding: 6px 14px;
+  border-radius: 4px;
+  background: rgba(254, 254, 254, 0.12);
+  border: 1px solid rgba(254, 254, 254, 0.2);
+  color: #e8e8e4;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hero__badge:first-child {
+  background: rgba(45, 106, 79, 0.35);
+  border-color: rgba(45, 106, 79, 0.5);
+  color: #d8f3e4;
+  font-weight: 600;
 }
 
 .hero__title {
   margin: 0;
-  font-size: clamp(3.5rem, 8vw, 5.5rem);
-  font-weight: 800;
+  font-size: clamp(3rem, 7vw, 5rem);
+  font-weight: 700;
   line-height: 1.05;
   letter-spacing: -0.04em;
-  color: #ffffff; /* White text for contrast */
-  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  color: #f0f0ec;
 }
 
 .hero__subtitle {
-  margin: 24px auto 40px;
-  color: #f4f4f5; /* Light zinc for contrast */
-  font-size: clamp(1.1rem, 2vw, 1.25rem);
+  margin: 20px 0 36px;
+  color: #c8c8c2;
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
   line-height: 1.6;
-  max-width: 540px;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  max-width: 440px;
 }
 
 .hero__linkButton {
@@ -115,100 +299,76 @@ a {
   align-items: center;
   justify-content: center;
   min-width: 112px;
-  padding: 12px 20px;
-  border: 1px solid rgba(6, 95, 70, 0.9);
-  border-radius: 999px;
-  background: rgba(6, 95, 70, 0.92);
-  backdrop-filter: blur(8px);
-  color: #ffffff;
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  padding: 12px 28px;
+  border: 1px solid rgba(45, 106, 79, 0.9);
+  border-radius: var(--radius-sm);
+  background: rgba(45, 106, 79, 0.9);
+  color: #f0f0ec;
+  font-family: var(--font-display), sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   text-transform: lowercase;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+  transition: var(--transition-smooth);
 }
 
 .hero__linkButton:hover {
-  background: rgba(4, 78, 56, 0.96);
-  border-color: rgba(4, 78, 56, 1);
+  background: rgba(27, 67, 50, 0.95);
+  border-color: rgba(27, 67, 50, 1);
+  color: #f0f0ec;
   transform: translateY(-1px);
 }
 
-.hero__badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  justify-content: center;
-  margin-bottom: 32px;
-}
-
-.hero__badge {
-  padding: 8px 16px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.15); /* Semi-transparent white */
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: #ffffff;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-.hero__badge:first-child {
-  background: rgba(15, 118, 110, 0.4); /* Stronger teal tint for contrast */
-  border-color: rgba(15, 118, 110, 0.6);
-  color: #ffffff;
-  font-weight: 600;
-}
+/* ============================================================
+   SERVICES — varied grid layout
+   ============================================================ */
 
 .services {
-  padding: 100px 0;
+  padding: 80px 0;
   position: relative;
   background-color: var(--bg-surface-hover);
 }
 
 .services__header {
-  text-align: center;
+  text-align: left;
+  max-width: 480px;
 }
 
 .services__eyebrow {
   margin: 0;
   color: var(--accent-primary);
-  font-size: 0.8125rem;
-  font-weight: 700;
-  letter-spacing: 0.22em;
+  font-family: var(--font-display), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
 }
 
 .services__title {
-  margin: 12px 0 0;
-  font-size: clamp(2rem, 3.5vw, 2.75rem);
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  margin: 10px 0 0;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 700;
   color: var(--text-primary);
 }
 
 .services__desc {
-  margin: 12px auto 0;
+  margin: 10px 0 0;
   color: var(--text-secondary);
-  font-size: 1.05rem;
-  max-width: 600px;
+  font-size: 0.95rem;
 }
 
 .services__grid {
-  margin-top: 48px;
+  margin-top: 40px;
   display: grid;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: auto;
+  gap: 12px;
 }
 
 .service-card {
   display: flex;
-  flex-direction: column;
   align-items: center;
   gap: 12px;
-  padding: 24px 12px;
-  text-align: center;
+  padding: 16px;
   background: var(--bg-surface);
   border: 1px solid var(--card-border);
   border-radius: var(--radius-md);
@@ -222,25 +382,25 @@ a {
 }
 
 .service-card--link:hover {
-  transform: translateY(-4px);
-  border-color: var(--card-border-glow);
+  transform: translateY(-2px);
+  border-color: var(--card-border-hover);
   box-shadow: var(--shadow-hover);
 }
 
 .service-card__icon-wrap {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
   display: grid;
   place-items: center;
   background: var(--bg-surface-hover);
-  border-radius: 50%;
-  padding: 10px;
+  border-radius: var(--radius-sm);
+  padding: 8px;
   transition: var(--transition-smooth);
 }
 
 .service-card--link:hover .service-card__icon-wrap {
-  background: rgba(15, 118, 110, 0.08); /* Light teal tint */
-  transform: scale(1.05);
+  background: var(--accent-light);
 }
 
 .service-card__icon {
@@ -249,68 +409,76 @@ a {
 
 .service-card__name {
   margin: 0;
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: var(--text-primary);
-  letter-spacing: 0.02em;
 }
+
+/* ============================================================
+   Shared Section Styles
+   ============================================================ */
 
 .section-eyebrow {
   margin: 0;
-  color: #0d9488;
-  font-size: 0.8125rem;
-  font-weight: 700;
-  letter-spacing: 0.22em;
+  color: var(--accent-primary);
+  font-family: var(--font-display), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
 }
 
 .section-title {
-  margin: 12px 0 0;
-  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  margin: 10px 0 0;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
   font-weight: 700;
 }
 
 .section-desc {
-  margin: 12px 0 0;
+  margin: 10px 0 0;
   color: var(--text-secondary);
-  font-size: 1rem;
+  font-size: 0.95rem;
 }
 
+/* ============================================================
+   GOLF SECTION (homepage)
+   ============================================================ */
+
 .golf {
-  padding: 100px 0;
+  padding: 80px 0;
   position: relative;
   background-color: var(--bg-page);
 }
 
 .golf__split {
-  margin-top: 48px;
+  margin-top: 40px;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 32px;
+  gap: 24px;
   align-items: start;
 }
 
 .golf-card {
   display: grid;
-  gap: 24px;
+  gap: 20px;
   align-content: start;
   background: var(--bg-surface);
   border: 1px solid var(--card-border);
   border-radius: var(--radius-lg);
-  padding: 32px;
-  box-shadow: var(--shadow-card);
+  padding: 28px;
+  box-shadow: var(--shadow-md);
 }
 
 .golf-card__head {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 20px;
+  padding-bottom: 16px;
   border-bottom: 1px solid var(--card-border);
 }
 
 .golf-card__head h3 {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.35rem;
   font-weight: 700;
   color: var(--text-primary);
 }
@@ -318,7 +486,7 @@ a {
 .golf-card__head span,
 .golf-card__head a {
   color: var(--accent-primary);
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   font-weight: 600;
   text-decoration: none;
 }
@@ -331,52 +499,55 @@ a {
   border: 1px solid var(--card-border);
   border-radius: var(--radius-md);
   background: var(--bg-surface-hover);
-  padding: 24px;
+  padding: 20px;
 }
 
 .latest-card__label {
-  margin: 0 0 8px;
+  margin: 0 0 6px;
   color: var(--text-secondary);
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
 .latest-card h4 {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 600;
   color: var(--text-primary);
 }
 
 .latest-card__meta {
-  margin: 8px 0 0;
+  margin: 6px 0 0;
   color: var(--text-secondary);
-  font-size: 0.875rem;
+  font-size: 0.85rem;
 }
+
+/* ============================================================
+   Badges
+   ============================================================ */
 
 .badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 999px;
-  padding: 6px 12px;
+  border-radius: 4px;
+  padding: 4px 10px;
   font-style: normal;
   font-size: 0.75rem;
   font-weight: 600;
   white-space: nowrap;
-  letter-spacing: 0.02em;
 }
 
 .badge--win {
-  color: #059669; /* Emerald-600 */
-  background: #d1fae5; /* Emerald-100 */
+  color: var(--color-win);
+  background: var(--color-win-bg);
 }
 
 .badge--lose {
-  color: #dc2626; /* Red-600 */
-  background: #fee2e2; /* Red-100 */
+  color: var(--color-lose);
+  background: var(--color-lose-bg);
 }
 
 .badge--pending {
@@ -384,6 +555,10 @@ a {
   background: var(--bg-page);
   border: 1px solid var(--card-border);
 }
+
+/* ============================================================
+   Table (homepage golf)
+   ============================================================ */
 
 .table-wrap {
   border-radius: var(--radius-md);
@@ -396,10 +571,10 @@ a {
   grid-template-columns: 0.9fr 1.5fr 1fr;
   align-items: center;
   gap: 12px;
-  padding: 16px;
+  padding: 14px 16px;
   border-bottom: 1px solid var(--card-border);
   background: var(--bg-surface);
-  transition: background 0.2s;
+  transition: background 0.15s var(--ease-out);
 }
 
 .table-row:hover:not(.table-row--head) {
@@ -411,7 +586,7 @@ a {
 }
 
 .table-row span {
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   color: var(--text-primary);
 }
 
@@ -422,15 +597,15 @@ a {
 .table-row--head span {
   color: var(--text-secondary);
   font-weight: 600;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
 }
 
 .table-score {
   font-weight: 700;
-  font-size: 1.1rem !important;
-  color: var(--accent-primary) !important;
+  font-size: 1.05rem;
+  color: var(--accent-primary);
 }
 
 .score {
@@ -439,28 +614,32 @@ a {
 }
 
 .score strong {
-  font-size: 2.5rem;
+  font-size: 2.25rem;
+  font-family: var(--font-display), sans-serif;
   line-height: 1;
   color: var(--accent-primary);
-  text-shadow: 0 0 15px rgba(20, 184, 166, 0.4);
 }
 
 .score span {
   color: var(--text-muted);
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   margin-top: 4px;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
 }
 
+/* ============================================================
+   BLOG
+   ============================================================ */
+
 .blog {
-  padding: 100px 0;
+  padding: 80px 0;
   position: relative;
 }
 
 .blog__head {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
   gap: 20px;
 }
@@ -469,11 +648,11 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 24px;
+  padding: 8px 20px;
   border: 1px solid var(--card-border);
   border-radius: var(--radius-sm);
   color: var(--text-primary);
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   font-weight: 500;
   text-decoration: none;
   background: var(--bg-surface);
@@ -483,13 +662,14 @@ a {
 .ghost-link:hover {
   background: var(--bg-surface-hover);
   border-color: var(--text-secondary);
+  color: var(--text-primary);
 }
 
 .blog__grid {
-  margin-top: 48px;
+  margin-top: 40px;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
+  gap: 20px;
 }
 
 .blog-card {
@@ -502,8 +682,8 @@ a {
 }
 
 .blog-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--card-border-glow);
+  transform: translateY(-3px);
+  border-color: var(--card-border-hover);
   box-shadow: var(--shadow-hover);
 }
 
@@ -522,31 +702,31 @@ a {
 
 .blog-card__image {
   object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.5s var(--ease-out);
 }
 
 .blog-card:hover .blog-card__image {
-  transform: scale(1.05);
+  transform: scale(1.04);
 }
 
 .blog-card__body {
   display: grid;
-  gap: 12px;
-  padding: 24px;
+  gap: 10px;
+  padding: 20px;
 }
 
 .blog-card__date {
   margin: 0;
-  color: var(--text-secondary);
-  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-size: 0.7rem;
   font-weight: 600;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
 .blog-card__title {
   margin: 0;
-  font-size: 1.125rem;
+  font-size: 1.05rem;
   font-weight: 700;
   line-height: 1.4;
   color: var(--text-primary);
@@ -555,12 +735,16 @@ a {
 .blog-card__desc {
   margin: 0;
   color: var(--text-secondary);
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   line-height: 1.6;
 }
 
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
 .site-footer {
-  padding: 60px 0;
+  padding: 52px 0;
   background: var(--bg-surface);
   border-top: 1px solid var(--card-border);
 }
@@ -575,15 +759,16 @@ a {
 .site-footer__logo {
   margin: 0;
   color: var(--text-primary);
-  font-size: 1.5rem;
-  font-weight: 800;
-  letter-spacing: -0.04em;
+  font-family: var(--font-display), sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
 }
 
 .site-footer__tagline {
-  margin: 16px 0 0;
+  margin: 12px 0 0;
   color: var(--text-secondary);
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   max-width: 300px;
   line-height: 1.6;
 }
@@ -591,15 +776,16 @@ a {
 .site-footer__links {
   display: flex;
   flex-wrap: wrap;
-  gap: 64px;
+  gap: 56px;
 }
 
 .site-footer__links h4 {
-  margin: 0 0 16px;
+  margin: 0 0 14px;
   color: var(--text-primary);
-  font-size: 0.875rem;
+  font-family: var(--font-display), sans-serif;
+  font-size: 0.8rem;
   font-weight: 600;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
@@ -608,23 +794,24 @@ a {
   padding: 0;
   list-style: none;
   display: grid;
-  gap: 12px;
+  gap: 10px;
 }
 
-.site-footer__links li {
+.site-footer__links li a,
+.site-footer__links li span {
   color: var(--text-secondary);
-  font-size: 0.875rem;
-  transition: var(--transition-smooth);
-  cursor: pointer;
+  font-size: 0.85rem;
+  transition: color 0.2s var(--ease-out);
+  text-decoration: none;
 }
 
-.site-footer__links li:hover {
+.site-footer__links li a:hover {
   color: var(--accent-primary);
 }
 
 .site-footer__divider {
-  margin: 32px 0;
-  width: 100%;
+  margin: 28px 0;
+  border: none;
   height: 1px;
   background: var(--card-border);
 }
@@ -648,14 +835,24 @@ a {
   gap: 16px;
 }
 
-.site-footer__social span {
+.site-footer__social a {
   color: var(--text-muted);
   font-size: 0.75rem;
+  text-decoration: none;
+  transition: color 0.2s var(--ease-out);
 }
+
+.site-footer__social a:hover {
+  color: var(--accent-primary);
+}
+
+/* ============================================================
+   Responsive — Homepage
+   ============================================================ */
 
 @media (max-width: 1024px) {
   .services__grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .golf__split,
@@ -667,12 +864,11 @@ a {
 @media (max-width: 768px) {
   .hero {
     min-height: 100vh;
-    padding: 60px 20px;
+    padding: 60px 0;
   }
 
   .hero__content {
     padding: 30px 20px;
-    border-radius: 20px;
   }
 
   .hero__title {
@@ -690,67 +886,59 @@ a {
   }
 
   .hero__badge {
-    padding: 6px 12px;
-    font-size: 0.75rem;
+    padding: 5px 10px;
+    font-size: 0.7rem;
   }
 
   .services {
-    padding: 60px 0;
-  }
-
-  .services::before, .golf::before {
-    display: none;
+    padding: 52px 0;
   }
 
   .services__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
-  }
-
-  .service-card {
-    padding: 16px;
+    grid-template-columns: 1fr;
+    gap: 8px;
   }
 
   .golf {
-    padding: 60px 0;
+    padding: 52px 0;
   }
 
   .golf__split {
-    margin-top: 32px;
-    gap: 24px;
+    margin-top: 28px;
+    gap: 20px;
   }
 
   .golf-card {
-    padding: 24px 20px;
+    padding: 20px;
     gap: 16px;
   }
 
   .golf-card__head h3 {
-    font-size: 1.25rem;
+    font-size: 1.15rem;
   }
 
   .latest-card {
-    padding: 20px;
+    padding: 16px;
     flex-direction: column;
-    gap: 16px;
+    gap: 14px;
   }
 
   .table-row {
     grid-template-columns: 0.8fr 1.2fr 1fr;
     gap: 8px;
-    padding: 12px 16px;
+    padding: 10px 14px;
   }
 
   .table-row span {
     font-size: 0.8rem;
   }
-  
+
   .score strong {
-    font-size: 2rem;
+    font-size: 1.75rem;
   }
 
   .blog {
-    padding: 60px 0;
+    padding: 52px 0;
   }
 
   .blog__head {
@@ -759,7 +947,7 @@ a {
   }
 
   .blog__grid {
-    gap: 20px;
+    gap: 16px;
   }
 
   .blog-card {
@@ -773,29 +961,33 @@ a {
 
   .site-footer__top {
     flex-direction: column;
-    gap: 32px;
+    gap: 28px;
   }
 
   .site-footer__links {
     flex-direction: column;
-    gap: 32px;
+    gap: 28px;
   }
 
   .site-footer__divider {
-    margin: 24px 0;
+    margin: 20px 0;
   }
 
   .site-footer__bottom {
     flex-direction: column;
     align-items: flex-start;
-    gap: 12px;
+    gap: 10px;
   }
 }
+
+/* ============================================================
+   GOLF DASHBOARD PAGE
+   ============================================================ */
 
 .golf-page {
   min-height: 100vh;
   padding: 0 0 80px;
-  background: linear-gradient(180deg, #eef8f6 0%, #ffffff 42%);
+  background: var(--bg-page);
 }
 
 .golf-page__content {
@@ -806,16 +998,15 @@ a {
 
 .golf-page__loading {
   font-size: 1rem;
-  color: #64748b;
+  color: var(--text-secondary);
   padding-top: 24px;
 }
 
 .golf-page__hero {
   position: relative;
   height: 340px;
-  border-radius: 0;
   overflow: hidden;
-  margin-bottom: 64px;
+  margin-bottom: 56px;
   border: 1px solid var(--card-border);
   border-top: 0;
   background-image: url("/images/pebble-beach-18th-green.jpg");
@@ -826,7 +1017,11 @@ a {
 .golf-page__hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 60%);
+  background: linear-gradient(90deg, rgba(26, 26, 26, 0.45) 0%, transparent 60%);
+}
+
+[data-theme="dark"] .golf-page__hero-overlay {
+  background: linear-gradient(90deg, rgba(21, 21, 20, 0.7) 0%, rgba(21, 21, 20, 0.2) 60%);
 }
 
 .golf-page__hero-home {
@@ -835,19 +1030,18 @@ a {
   left: 12px;
   z-index: 1;
   color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(4px);
+  background: var(--bg-surface);
   border-radius: var(--radius-sm);
   padding: 4px 12px;
   font-size: 0.8rem;
   font-weight: 600;
   text-decoration: none;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--card-border);
   transition: var(--transition-smooth);
 }
 
 .golf-page__hero-home:hover {
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--bg-surface-hover);
   box-shadow: var(--shadow-sm);
 }
 
@@ -860,10 +1054,10 @@ a {
 
 .golf-page__title {
   margin: 8px 0 0;
-  font-size: clamp(1.9rem, 3vw, 2.6rem);
-  font-weight: 800;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 700;
   color: var(--text-primary);
-  letter-spacing: -0.04em;
+  letter-spacing: -0.03em;
 }
 
 .golf-page__desc {
@@ -888,13 +1082,13 @@ a {
   background: var(--bg-surface);
   color: var(--text-primary);
   cursor: pointer;
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   transition: var(--transition-smooth);
 }
 
 .golf-page__actions button {
   padding: 8px 10px;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 600;
 }
 
@@ -908,10 +1102,11 @@ a {
 
 .golf-page__error {
   margin: 16px 0 0;
-  color: #dc2626; /* Red-600 */
+  color: var(--color-error);
   font-size: 0.9rem;
 }
 
+/* KPI Chips */
 .golf-kpis {
   margin-top: 18px;
   margin-bottom: 24px;
@@ -925,33 +1120,35 @@ a {
   align-items: baseline;
   gap: 8px;
   border: 1px solid var(--card-border);
-  border-radius: 999px;
+  border-radius: var(--radius-sm);
   background: var(--bg-surface);
-  padding: 6px 16px;
+  padding: 6px 14px;
   box-shadow: var(--shadow-sm);
 }
 
 .golf-kpi-chip p {
   margin: 0;
   color: var(--text-secondary);
-  font-size: 0.76rem;
+  font-size: 0.75rem;
   font-weight: 500;
 }
 
 .golf-kpi-chip strong {
-  font-size: 0.9rem;
+  font-size: 0.88rem;
+  font-family: var(--font-display), sans-serif;
   line-height: 1;
   color: var(--text-primary);
 }
 
+/* Highlight Card */
 .golf-highlight {
   margin-top: 14px;
   border-radius: var(--radius-md);
-  border: 1px solid rgba(15, 23, 42, 0.08); /* Slate-900 at 8% */
-  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); /* Slate-50 */
+  border: 1px solid var(--card-border);
+  background: var(--highlight-bg);
   color: var(--text-primary);
   padding: 24px;
-  box-shadow: 0 8px 24px -8px rgba(15, 23, 42, 0.12); /* Soft neutral shadow */
+  box-shadow: var(--shadow-md);
   position: relative;
   overflow: hidden;
 }
@@ -961,22 +1158,23 @@ a {
   position: absolute;
   top: 0;
   left: 0;
-  width: 4px;
+  width: 3px;
   height: 100%;
-  background: #334155; /* Slate-700, professional neutral accent */
+  background: var(--highlight-bar);
 }
 
 .golf-highlight__eyebrow {
   margin: 0;
   font-size: 0.7rem;
+  font-family: var(--font-display), sans-serif;
   letter-spacing: 0.1em;
-  color: #475569; /* Slate-600 */
+  color: var(--highlight-eyebrow);
   font-weight: 700;
   text-transform: uppercase;
 }
 
 .golf-highlight__top {
-  margin-top: 12px;
+  margin-top: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -985,7 +1183,7 @@ a {
 
 .golf-highlight__top h2 {
   margin: 0;
-  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  font-size: clamp(1.05rem, 1.8vw, 1.3rem);
   font-weight: 700;
 }
 
@@ -997,44 +1195,45 @@ a {
 }
 
 .golf-highlight__winner {
-  margin-top: 16px;
+  margin-top: 14px;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  border-radius: 999px;
-  padding: 8px 16px;
-  border: 1px solid #fef3c7; /* Amber-100 */
-  background: #fffbeb; /* Amber-50 */
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  border: 1px solid var(--color-amber-border);
+  background: var(--color-amber-light);
 }
 
 .golf-highlight__winner-label {
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
-  color: #d97706; /* Amber-600 */
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--color-amber);
   font-weight: 700;
   text-transform: uppercase;
 }
 
 .golf-highlight__winner strong {
-  font-size: clamp(1.2rem, 2.2vw, 1.5rem);
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  font-family: var(--font-display), sans-serif;
   line-height: 1;
-  color: #92400e; /* Amber-800 */
+  color: var(--color-amber);
 }
 
 .golf-highlight__meta span {
   display: inline-flex;
   align-items: center;
   border: 1px solid var(--card-border);
-  border-radius: 999px;
+  border-radius: var(--radius-sm);
   background: var(--bg-surface-hover);
-  padding: 6px 12px;
-  font-size: 0.78rem;
+  padding: 5px 10px;
+  font-size: 0.76rem;
   font-weight: 500;
 }
 
 .golf-highlight__date {
   margin: 0;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   color: var(--text-secondary);
 }
 
@@ -1044,8 +1243,9 @@ a {
   font-size: 0.9rem;
 }
 
+/* Dual Panel Layout */
 .golf-dual {
-  margin-top: 26px;
+  margin-top: 24px;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
@@ -1055,13 +1255,13 @@ a {
   border: 1px solid var(--card-border);
   border-radius: var(--radius-md);
   background: var(--bg-surface);
-  padding: 24px;
+  padding: 20px;
   box-shadow: var(--shadow-sm);
 }
 
 .golf-list-panel__head h2 {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: var(--text-primary);
 }
@@ -1074,8 +1274,8 @@ a {
 }
 
 .golf-list-panel__add {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   border: 1px solid var(--card-border);
   border-radius: 50%;
   background: var(--bg-surface-hover);
@@ -1083,7 +1283,7 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 600;
   line-height: 1;
   cursor: pointer;
@@ -1099,11 +1299,11 @@ a {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin: 16px 0;
+  margin: 14px 0;
 }
 
 .golf-list-panel__filter label {
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   font-weight: 500;
   color: var(--text-secondary);
 }
@@ -1121,15 +1321,16 @@ a {
   transition: var(--transition-smooth);
 }
 
-.golf-list-panel__filter select:focus,
-.golf-form input:focus,
-.golf-form select:focus,
-.golf-form textarea:focus {
-  outline: none;
+.golf-list-panel__filter select:focus-visible,
+.golf-form input:focus-visible,
+.golf-form select:focus-visible,
+.golf-form textarea:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 1px;
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 2px var(--accent-glow);
 }
 
+/* Golf Tables */
 .golf-table-wrap {
   overflow: auto;
   border: 1px solid var(--card-border);
@@ -1145,9 +1346,9 @@ a {
 .golf-table th,
 .golf-table td {
   border-bottom: 1px solid var(--card-border);
-  padding: 12px 16px;
+  padding: 11px 14px;
   text-align: left;
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   word-break: break-word;
 }
 
@@ -1171,14 +1372,14 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  border: 1px solid #fef3c7;
-  border-radius: 999px;
-  padding: 4px 10px;
-  background: #fffbeb;
-  color: #b45309;
+  border: 1px solid var(--color-amber-border);
+  border-radius: var(--radius-sm);
+  padding: 3px 8px;
+  background: var(--color-amber-light);
+  color: var(--color-amber);
   font-weight: 700;
   line-height: 1;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
 }
 
 .golf-winner-chip--pending {
@@ -1192,17 +1393,17 @@ a {
   background: var(--bg-surface-hover);
   color: var(--text-secondary);
   font-weight: 600;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
 }
 
 .golf-table__action {
   border: 1px solid var(--card-border);
   border-radius: var(--radius-sm);
   background: var(--bg-surface);
-  padding: 6px 12px;
-  font-size: 0.8rem;
+  padding: 5px 10px;
+  font-size: 0.78rem;
   font-weight: 600;
   color: var(--text-secondary);
   cursor: pointer;
@@ -1215,29 +1416,21 @@ a {
 }
 
 .golf-table__action--icon {
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   padding: 0;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 
-.golf-col-date {
-  width: 100px;
-}
+.golf-col-date { width: 100px; }
+.golf-col-weather { width: 80px; }
+.golf-col-edit { width: 60px; text-align: center; }
 
-.golf-col-weather {
-  width: 80px;
-}
-
-.golf-col-edit {
-  width: 60px;
-  text-align: center !important;
-}
-
+/* Mobile Cards */
 .golf-mobile-list {
   display: none;
 }
@@ -1246,7 +1439,7 @@ a {
   border: 0;
   border-radius: 0;
   background: var(--bg-surface);
-  padding: 16px;
+  padding: 14px;
   display: grid;
   gap: 8px;
 }
@@ -1276,14 +1469,14 @@ a {
 .golf-mobile-card__date {
   margin: 0;
   color: var(--text-secondary);
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 600;
 }
 
 .golf-mobile-card__title {
   margin: 0;
   color: var(--text-primary);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   line-height: 1.45;
   font-weight: 500;
 }
@@ -1295,7 +1488,7 @@ a {
 
 .golf-mobile-card__meta span {
   color: var(--text-secondary);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   line-height: 1.35;
 }
 
@@ -1307,7 +1500,7 @@ a {
 
 .golf-mobile-card__result-label {
   color: var(--text-muted);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 600;
   text-transform: uppercase;
 }
@@ -1316,18 +1509,18 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 56px;
-  border-radius: 999px;
-  padding: 6px 12px;
-  font-size: 0.92rem;
+  min-width: 52px;
+  border-radius: var(--radius-sm);
+  padding: 5px 10px;
+  font-size: 0.88rem;
   line-height: 1;
   font-weight: 700;
 }
 
 .golf-mobile-card__result-chip--winner {
-  border: 1px solid #fef3c7;
-  background: #fffbeb;
-  color: #b45309;
+  border: 1px solid var(--color-amber-border);
+  background: var(--color-amber-light);
+  color: var(--color-amber);
 }
 
 .golf-mobile-card__result-chip--pending {
@@ -1337,9 +1530,9 @@ a {
 }
 
 .golf-mobile-card__result-chip--score {
-  border: 1px solid #d1fae5;
-  background: #ecfdf5;
-  color: #059669;
+  border: 1px solid var(--color-win-bg);
+  background: var(--color-win-bg);
+  color: var(--color-win);
 }
 
 .golf-mobile-card--empty {
@@ -1348,15 +1541,22 @@ a {
   border-top: 1px solid var(--card-border);
 }
 
+/* ============================================================
+   Modals
+   ============================================================ */
+
 .golf-modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5); /* Simpler, cleaner darker overlay */
-  backdrop-filter: blur(4px);
+  background: rgba(26, 26, 26, 0.5);
   z-index: 120;
   display: grid;
   place-items: center;
   padding: 20px;
+}
+
+[data-theme="dark"] .golf-modal-backdrop {
+  background: rgba(0, 0, 0, 0.6);
 }
 
 .golf-modal {
@@ -1366,7 +1566,7 @@ a {
   border-radius: var(--radius-lg);
   background: var(--bg-surface);
   border: 1px solid var(--card-border);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 20px 40px rgba(26, 26, 26, 0.15);
 }
 
 .golf-modal__header {
@@ -1376,14 +1576,14 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 20px;
+  padding: 14px 20px;
   border-bottom: 1px solid var(--card-border);
   background: var(--bg-surface);
 }
 
 .golf-modal__header h2 {
   margin: 0;
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--text-primary);
 }
@@ -1394,9 +1594,10 @@ a {
 }
 
 .golf-modal__body {
-  padding: 24px;
+  padding: 20px;
 }
 
+/* User Modal */
 .user-modal-layout {
   display: grid;
   gap: 16px;
@@ -1408,14 +1609,14 @@ a {
   border-radius: var(--radius-md);
   border: 1px solid var(--card-border);
   background-image:
-    linear-gradient(100deg, rgba(250, 250, 250, 0.95), rgba(250, 250, 250, 0.6)),
+    linear-gradient(100deg, var(--bg-page), transparent),
     url("/images/golf-hero.svg");
   background-size: cover;
   background-position: center;
 }
 
 .user-modal-hero__content {
-  padding: 24px;
+  padding: 20px;
   color: var(--text-primary);
   position: relative;
   z-index: 1;
@@ -1424,7 +1625,8 @@ a {
 .user-modal-hero__eyebrow {
   margin: 0;
   color: var(--accent-primary);
-  font-size: 0.75rem;
+  font-family: var(--font-display), sans-serif;
+  font-size: 0.72rem;
   letter-spacing: 0.1em;
   font-weight: 700;
   text-transform: uppercase;
@@ -1432,25 +1634,25 @@ a {
 
 .user-modal-hero h3 {
   margin: 8px 0 0;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: 700;
 }
 
 .user-modal-hero p {
   margin: 8px 0 0;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   color: var(--text-secondary);
 }
 
 .user-modal-hero__count {
-  margin-top: 16px;
+  margin-top: 14px;
   display: inline-flex;
   align-items: center;
-  border-radius: 999px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--card-border);
   background: var(--bg-surface);
-  padding: 8px 16px;
-  font-size: 0.875rem;
+  padding: 6px 14px;
+  font-size: 0.85rem;
   font-weight: 500;
   color: var(--text-primary);
   box-shadow: var(--shadow-sm);
@@ -1479,13 +1681,14 @@ a {
 .golf-modal-split {
   display: grid;
   grid-template-columns: 240px minmax(0, 1fr);
-  gap: 24px;
+  gap: 20px;
   align-items: stretch;
 }
 
 .golf-modal-side {
   border: 0;
-  border-radius: var(--radius-md);  background-size: 72%;
+  border-radius: var(--radius-md);
+  background-size: 72%;
   background-repeat: no-repeat;
   background-position: center;
   background-color: transparent;
@@ -1495,13 +1698,13 @@ a {
 .golf-modal-side--round {
   background-image: url("/images/golf_illust.jpg");
   background-size: contain;
-  background-color: #ffffff;
+  background-color: var(--modal-side-bg);
 }
 
 .golf-modal-side--match {
   background-image: url("/images/golf_illust.jpg");
   background-size: contain;
-  background-color: #ffffff;
+  background-color: var(--modal-side-bg);
 }
 
 .golf-form--wide {
@@ -1530,12 +1733,13 @@ a {
 
 .golf-modal-list__item--new {
   border-style: dashed;
-  border-color: #0f766e;
-  color: #0f766e;
+  border-color: var(--new-item-border);
+  color: var(--new-item-color);
   font-weight: 700;
-  background: #f0fdfa;
+  background: var(--new-item-bg);
 }
 
+/* Forms */
 .golf-form {
   display: grid;
   gap: 10px;
@@ -1573,15 +1777,19 @@ a {
 }
 
 .golf-button--danger {
-  border-color: #fecaca !important;
-  background: #fef2f2 !important;
-  color: #b91c1c !important;
+  border-color: var(--color-danger-border);
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
 }
 
 .golf-button--danger:hover {
-  border-color: #ef4444 !important;
-  background: #fee2e2 !important;
+  border-color: var(--color-danger-hover-border);
+  background: var(--color-danger-hover-bg);
 }
+
+/* ============================================================
+   Responsive — Golf Dashboard
+   ============================================================ */
 
 @media (max-width: 1024px) {
   .golf-page__header {
@@ -1604,17 +1812,16 @@ a {
 
 @media (max-width: 768px) {
   .golf-page {
-    padding: 0 0 56px;
+    padding: 0 0 48px;
   }
 
   .golf-page__content {
-    padding-inline: 20px;
+    padding-inline: 16px;
   }
 
   .golf-page__hero {
     height: 220px;
-    border-radius: 0;
-    margin-bottom: 40px;
+    margin-bottom: 36px;
   }
 
   .golf-page__actions {

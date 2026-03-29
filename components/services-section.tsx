@@ -3,7 +3,7 @@ import { services } from "@/data/services";
 
 export function ServicesSection() {
   return (
-    <section className="services">
+    <section className="services" id="services" aria-label="Docker Services">
       <div className="container">
         <div className="services__header">
           <p className="services__eyebrow">DOCKER SERVICES</p>
