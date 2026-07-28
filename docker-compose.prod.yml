@@ -1,22 +1,4 @@
 services:
-  mysql:
-    image: mysql:8.4
-    container_name: mysql
-    restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE:-golf}
-      TZ: ${TZ:-Asia/Seoul}
-    volumes:
-      - mysql_data:/var/lib/mysql
-    healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 20
-    networks:
-      - akke
-
   juux:
     build:
       context: .
@@ -37,15 +19,10 @@ services:
       TZ: ${TZ:-Asia/Seoul}
     volumes:
       - ./storage:/app/storage
-    depends_on:
-      mysql:
-        condition: service_healthy
     networks:
       - akke
-
-volumes:
-  mysql_data:
 
 networks:
   akke:
     external: true
+
