@@ -1,10 +1,6 @@
 import { cookies } from "next/headers";
-import {
-  DROP_AUTH_COOKIE,
-  DROP_AUTH_MAX_AGE,
-  checkPassword,
-  issueToken
-} from "@/lib/drop-auth";
+import { AUTH_COOKIE, AUTH_MAX_AGE } from "@/lib/auth-token";
+import { checkPassword, issueToken } from "@/lib/site-auth";
 
 export const runtime = "nodejs";
 
@@ -60,25 +56,25 @@ export async function POST(request: Request) {
     // 잘못된 요청 본문은 실패로 처리
   }
 
-  if (!checkPassword(password)) {
+  if (!(await checkPassword(password))) {
     recordFailure(key);
     await new Promise((resolve) => setTimeout(resolve, 800));
     return Response.json({ error: "비밀번호가 올바르지 않습니다." }, { status: 401 });
   }
 
   failures.delete(key);
-  (await cookies()).set(DROP_AUTH_COOKIE, issueToken(), {
+  (await cookies()).set(AUTH_COOKIE, await issueToken(), {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     path: "/",
-    maxAge: DROP_AUTH_MAX_AGE
+    maxAge: AUTH_MAX_AGE
   });
 
   return Response.json({ ok: true });
 }
 
 export async function DELETE() {
-  (await cookies()).delete(DROP_AUTH_COOKIE);
+  (await cookies()).delete(AUTH_COOKIE);
   return Response.json({ ok: true });
 }

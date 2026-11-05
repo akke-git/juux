@@ -1,4 +1,4 @@
-import { requireDropAuth } from "@/lib/drop-auth";
+import { requireAuth } from "@/lib/site-auth";
 import { listStoredFiles, saveUploadedFile } from "@/lib/dropbox";
 
 export const runtime = "nodejs";
@@ -11,7 +11,7 @@ function getMaxFileBytes() {
 }
 
 export async function GET() {
-  const denied = await requireDropAuth();
+  const denied = await requireAuth();
   if (denied) return denied;
 
   try {
@@ -24,7 +24,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const denied = await requireDropAuth();
+  const denied = await requireAuth();
   if (denied) return denied;
 
   try {

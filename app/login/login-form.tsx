@@ -1,12 +1,16 @@
 "use client";
 
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
-import styles from "./drop-page.module.css";
+import styles from "./login.module.css";
 
-export function DropLogin() {
-  const router = useRouter();
+// 오픈 리다이렉트 방지: 같은 사이트 내부 경로만 허용
+function safeNext(next: string | undefined) {
+  return next && next.startsWith("/") && !next.startsWith("//") && !next.startsWith("/\\")
+    ? next
+    : "/";
+}
+
+export function LoginForm({ next }: { next?: string }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -19,7 +23,7 @@ export function DropLogin() {
     setError("");
 
     try {
-      const response = await fetch("/api/drop/auth", {
+      const response = await fetch("/api/auth", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ password })
@@ -30,7 +34,8 @@ export function DropLogin() {
         throw new Error(result.error ?? "로그인에 실패했습니다.");
       }
 
-      router.refresh();
+      // 전체 새로고침으로 이동해 쿠키가 확실히 반영되게 한다
+      window.location.replace(safeNext(next));
     } catch (err) {
       setError(err instanceof Error ? err.message : "로그인에 실패했습니다.");
       setIsSubmitting(false);
@@ -41,21 +46,16 @@ export function DropLogin() {
     <main className={styles.page}>
       <div className={styles.shell}>
         <section className={styles.hero}>
-          <div className={styles.heroTop}>
-            <Link href="/" className={styles.backButton}>
-              Back
-            </Link>
-            <p className={styles.eyebrow}>Drop Space</p>
-          </div>
-          <h1 className={styles.title}>File Transfer</h1>
+          <p className={styles.eyebrow}>Juux</p>
+          <h1 className={styles.title}>Sign in</h1>
           <p className={styles.description}>
             비밀번호를 입력하세요. 이 기기에서는 90일 동안 다시 묻지 않습니다.
           </p>
         </section>
 
-        <form className={styles.loginForm} onSubmit={handleSubmit}>
+        <form className={styles.form} onSubmit={handleSubmit}>
           <input
-            className={styles.loginInput}
+            className={styles.input}
             type="password"
             name="password"
             autoComplete="current-password"
@@ -67,7 +67,7 @@ export function DropLogin() {
           <button className={styles.button} type="submit" disabled={isSubmitting || !password}>
             {isSubmitting ? "확인 중..." : "들어가기"}
           </button>
-          {error ? <p className={styles.loginError}>{error}</p> : null}
+          {error ? <p className={styles.error}>{error}</p> : null}
         </form>
       </div>
     </main>

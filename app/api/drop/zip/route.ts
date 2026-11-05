@@ -1,4 +1,4 @@
-import { requireDropAuth } from "@/lib/drop-auth";
+import { requireAuth } from "@/lib/site-auth";
 import { PassThrough, Readable } from "node:stream";
 import archiver from "archiver";
 import { getStoredFile, encodeDownloadFileName } from "@/lib/dropbox";
@@ -6,7 +6,7 @@ import { getStoredFile, encodeDownloadFileName } from "@/lib/dropbox";
 export const runtime = "nodejs";
 
 export async function POST(request: Request) {
-  const denied = await requireDropAuth();
+  const denied = await requireAuth();
   if (denied) return denied;
 
   try {

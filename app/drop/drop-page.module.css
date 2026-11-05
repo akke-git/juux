@@ -391,34 +391,3 @@
     justify-content: flex-start;
   }
 }
-
-.loginForm {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
-  max-width: 440px;
-}
-
-.loginInput {
-  flex: 1 1 220px;
-  min-width: 0;
-  padding: 10px 14px;
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius-sm);
-  background: var(--bg-surface);
-  color: var(--text-primary);
-  font: inherit;
-}
-
-.loginInput:focus {
-  outline: none;
-  border-color: var(--accent-primary);
-}
-
-.loginError {
-  flex-basis: 100%;
-  margin: 0;
-  color: #d64545;
-  font-size: 0.9rem;
-}

@@ -11,7 +11,8 @@ services:
       NODE_ENV: production
       PORT: 3000
       DROPBOX_DIR: /app/storage/dropbox
-      DROP_PASSWORD: ${DROP_PASSWORD:?DROP_PASSWORD must be set in .env.prod}
+      # 사이트 전체 로그인 비밀번호 (예전 이름 DROP_PASSWORD도 호환)
+      SITE_PASSWORD: ${SITE_PASSWORD:-${DROP_PASSWORD:?SITE_PASSWORD must be set in .env.prod}}
       GOLF_DB_HOST: mysql
       GOLF_DB_PORT: 3306
       GOLF_DB_USER: root

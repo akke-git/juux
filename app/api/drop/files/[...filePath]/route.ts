@@ -1,4 +1,4 @@
-import { requireDropAuth } from "@/lib/drop-auth";
+import { requireAuth } from "@/lib/site-auth";
 import { Readable } from "node:stream";
 import { deleteStoredFile, encodeDownloadFileName, getStoredFile } from "@/lib/dropbox";
 
@@ -23,7 +23,7 @@ function resolveRelativePath(filePath: string[]) {
 }
 
 export async function GET(_: Request, context: Params) {
-  const denied = await requireDropAuth();
+  const denied = await requireAuth();
   if (denied) return denied;
 
   try {
@@ -51,7 +51,7 @@ export async function GET(_: Request, context: Params) {
 }
 
 export async function DELETE(_: Request, context: Params) {
-  const denied = await requireDropAuth();
+  const denied = await requireAuth();
   if (denied) return denied;
 
   try {
