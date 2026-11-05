@@ -14,3 +14,7 @@ yarn-error.log*
 storage/dropbox/*
 !storage/.gitkeep
 !storage/dropbox/.gitkeep
+
+# secrets
+.env.prod
+*.bak-*

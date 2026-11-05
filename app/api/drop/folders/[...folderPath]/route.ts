@@ -1,3 +1,4 @@
+import { requireDropAuth } from "@/lib/drop-auth";
 import { PassThrough } from "node:stream";
 import { Readable } from "node:stream";
 import archiver from "archiver";
@@ -24,6 +25,9 @@ function resolveRelativePath(folderPath: string[]) {
 }
 
 export async function GET(_: Request, context: Params) {
+  const denied = await requireDropAuth();
+  if (denied) return denied;
+
   try {
     const { folderPath } = await context.params;
     const target = await getStoredFolder(resolveRelativePath(folderPath));

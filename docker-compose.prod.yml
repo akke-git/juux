@@ -6,11 +6,12 @@ services:
     container_name: juux
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "100.105.212.24:3000:3000"
     environment:
       NODE_ENV: production
       PORT: 3000
       DROPBOX_DIR: /app/storage/dropbox
+      DROP_PASSWORD: ${DROP_PASSWORD:?DROP_PASSWORD must be set in .env.prod}
       GOLF_DB_HOST: mysql
       GOLF_DB_PORT: 3306
       GOLF_DB_USER: root
