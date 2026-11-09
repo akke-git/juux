@@ -20,9 +20,15 @@ export function HeroSection() {
         <p className="hero__subtitle">
           컨텐츠 추가중
         </p>
-        <Link href="/drop" className="hero__linkButton">
-          drop
-        </Link>
+        <div className="hero__links">
+          <Link href="/drop" className="hero__linkButton">
+            drop
+          </Link>
+          {/* 별도 컨테이너(juutoki)로 프록시되는 경로라 Next Link가 아닌 일반 링크 */}
+          <a href="/toki/" className="hero__linkButton">
+            toki
+          </a>
+        </div>
       </div>
     </section>
   );
