@@ -15,9 +15,9 @@ services:
       SITE_PASSWORD: ${SITE_PASSWORD:-${DROP_PASSWORD:?SITE_PASSWORD must be set in .env.prod}}
       GOLF_DB_HOST: mysql
       GOLF_DB_PORT: 3306
-      # golf DB 전용 계정(SELECT/INSERT/UPDATE/DELETE). .env.prod에 없으면 예전처럼 root를 쓴다
-      GOLF_DB_USER: ${GOLF_DB_USER:-root}
-      GOLF_DB_PASSWORD: ${GOLF_DB_PASSWORD:-${MYSQL_ROOT_PASSWORD}}
+      # golf DB 전용 계정(SELECT/INSERT/UPDATE/DELETE만). root는 쓰지 않는다
+      GOLF_DB_USER: ${GOLF_DB_USER:?GOLF_DB_USER must be set in .env.prod}
+      GOLF_DB_PASSWORD: ${GOLF_DB_PASSWORD:?GOLF_DB_PASSWORD must be set in .env.prod}
       GOLF_DB_NAME: ${MYSQL_DATABASE:-golf}
       TZ: ${TZ:-Asia/Seoul}
     volumes:

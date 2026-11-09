@@ -59,7 +59,7 @@ GOLF_DB_NAME=golf
 
 ```bash
 cp .env.prod.example .env.prod
-# .env.prod에서 MYSQL_ROOT_PASSWORD 수정
+# .env.prod에서 GOLF_DB_USER / GOLF_DB_PASSWORD (golf 전용 MySQL 계정) 수정
 ```
 
 기존 nginx/mysql 컨테이너 정리(필요 시):
