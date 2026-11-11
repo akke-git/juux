@@ -294,12 +294,6 @@ a:hover {
   max-width: 440px;
 }
 
-.hero__links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
 .hero__linkButton {
   display: inline-flex;
   align-items: center;
