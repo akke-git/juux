@@ -18,8 +18,10 @@ ENV PORT=3000
 RUN addgroup -S nextjs && adduser -S nextjs -G nextjs
 
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
+# 이미지 최적화 결과를 .next/cache에 저장하므로 실행 사용자(nextjs)가 .next에 쓸 수 있어야 한다
+RUN mkdir .next && chown nextjs:nextjs .next
+COPY --from=builder --chown=nextjs:nextjs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nextjs /app/.next/static ./.next/static
 
 USER nextjs
 EXPOSE 3000
